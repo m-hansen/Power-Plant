@@ -9,7 +9,7 @@ public class Settlement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color defaultColor = Color.magenta; // magenta is used as an error color - we may fail to find the correct default color
 
-    private bool isHoveredOver = true;
+    private bool isHoveredOver = false; // old code used to highlight nodes, will likely be removed soon in favor of a different technique
 
     private void Awake()
     {
@@ -17,19 +17,6 @@ public class Settlement : MonoBehaviour
         Debug.Assert(spriteRenderer != null);
 
         defaultColor = spriteRenderer.color;
-    }
-
-    private void Update()
-    {
-        if (isHoveredOver && Input.GetMouseButtonDown(0))
-        {
-            HandleClick();
-        }
-    }
-
-    private void HandleClick()
-    {
-
     }
 
     private void OnMouseEnter()

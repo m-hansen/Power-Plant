@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1993194666307645496}
   - component: {fileID: 7621604907243956867}
-  - component: {fileID: 7912340218246315786}
   - component: {fileID: 221952983}
+  - component: {fileID: 7912340218246315786}
+  - component: {fileID: 1241888896978316814}
   m_Layer: 0
   m_Name: Settlement
   m_TagString: Untagged
@@ -86,19 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7912340218246315786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6166899645302836821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b282c698f78e8b4990245f62d814d2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverColor: {r: 1, g: 0.50728744, b: 0, a: 1}
 --- !u!61 &221952983
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +132,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7912340218246315786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6166899645302836821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b282c698f78e8b4990245f62d814d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverColor: {r: 1, g: 0.50728744, b: 0, a: 1}
+--- !u!114 &1241888896978316814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6166899645302836821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6bb858c561c74b4791c2206882a1720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

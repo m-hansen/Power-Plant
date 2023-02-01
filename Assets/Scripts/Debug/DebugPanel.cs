@@ -8,9 +8,7 @@ public class DebugPanel : MonoBehaviour
 
     void LateUpdate()
     {
-        selectedNodeText.text =
-            "FirstSelectedNode: " + EvaluateSelectedNodeValue(GameManager.Instance.FirstSelectedNode) + "\n" +
-            "SecondSelectedNode: " + EvaluateSelectedNodeValue(GameManager.Instance.SecondSelectedNode);
+        // Intentionally left blank for now - the only debug info being used was removed from the game manager
     }
 
     private string EvaluateSelectedNodeValue(Node n) => n != null ? n.gameObject.name : "None";
