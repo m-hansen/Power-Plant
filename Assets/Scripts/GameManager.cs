@@ -12,19 +12,21 @@ public class GameManager : Singleton<GameManager>
     }
 
     [SerializeField]
+    private PowerPlant powerPlant;
+
+    [SerializeField]
     private int startingPrimaryResource = 25;
 
     public GameStateEnum GameState { get; private set; } = GameStateEnum.Observing; // Do not modify this variable directly - call ChangeGameState instead
 
     public List<Node> Nodes { get; private set; }
 
-    public GameObject Plant { get; private set; }
+    public PowerPlant Plant { get => powerPlant; }
 
     public int PrimaryResource { get; private set; } // TODO: name me
 
     private void Awake()
     {
-        Plant = GameObject.FindWithTag("Player");
         PrimaryResource = startingPrimaryResource;
 
         RegisterAllNodes();
