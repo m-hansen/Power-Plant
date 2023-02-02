@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5625458780096700780}
   - component: {fileID: 5625458780096700782}
   - component: {fileID: 5625458780096700818}
-  - component: {fileID: 5625458780096700817}
+  - component: {fileID: 4959345811315359417}
   m_Layer: 0
   m_Name: GameplayCamera
   m_TagString: MainCamera
@@ -110,7 +110,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
---- !u!114 &5625458780096700817
+--- !u!114 &4959345811315359417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
