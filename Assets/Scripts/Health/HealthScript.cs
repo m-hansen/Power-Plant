@@ -1,9 +1,9 @@
 using System;
-using UnityEngine;
 
-public class HealthScript : MonoBehaviour
+public class HealthScript
 {
     public event EventHandler OnHealthChanged;
+    public event EventHandler OnDeath;
 
     private float health;
     private float healthMax;
@@ -26,14 +26,35 @@ public class HealthScript : MonoBehaviour
     public void Damage(float damageAmount)
     {
         health -= damageAmount;
-        if (health < 0) health = 0;
-        if (OnHealthChanged != null) OnHealthChanged(this, EventArgs.Empty);
-    }
+        if (health < 0)
+        {
+            health = 0;
+            if (OnDeath != null)
+            {
+                OnDeath(this, EventArgs.Empty);
+            }
 
+
+        }
+        if (OnHealthChanged != null) 
+        { 
+            OnHealthChanged(this, EventArgs.Empty);
+        }
+    }
     public void Heal(float healAmount)
     {
-        health += healAmount;
-        if (health > healthMax) health = healthMax;
-        if (OnHealthChanged != null) OnHealthChanged(this, EventArgs.Empty);
+        if (health > 0)
+        {
+            health += healAmount;
+        }
+        if (health > healthMax) 
+        {
+            health = healthMax;
+        }
+
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(this, EventArgs.Empty);
+        }
     }
 }

@@ -12,11 +12,22 @@ public class HealthBar : MonoBehaviour
         transform.Find("Bar").localScale = new Vector3(healthScript.GetHealthPercent(), 1);
 
         healthScript.OnHealthChanged += HealthScript_OnHealthChanged;
+        healthScript.OnDeath+= HealthScript_OnDeath;
     }
 
     private void HealthScript_OnHealthChanged(object sender, System.EventArgs e)
     {
         transform.Find("Bar").localScale = new Vector3(healthScript.GetHealthPercent(), 1);
+    }
+
+    private void HealthScript_OnDeath(object sender, System.EventArgs e)
+    {
+        Fade();
+    }
+
+    IEnumerator Fade ()
+    {
+        yield return new WaitForSeconds(2f);
     }
    
 }

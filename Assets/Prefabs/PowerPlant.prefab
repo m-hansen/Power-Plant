@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3773908739817971683}
   - component: {fileID: 1251493445631447709}
   - component: {fileID: 2681575813232523715}
+  - component: {fileID: 3709124763910748455}
   m_Layer: 0
   m_Name: PowerPlant
   m_TagString: Untagged
@@ -133,3 +134,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6bb858c561c74b4791c2206882a1720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3709124763910748455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637298396961980520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a60d977dc1d48047aa10bfba3738019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tickRate: 1
+  prefabHealthBar: {fileID: 9108349239082846840, guid: 30b1f1900e258414eb7774a885c2f2a4, type: 3}
