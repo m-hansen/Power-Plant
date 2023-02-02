@@ -3,22 +3,24 @@ using System;
 
 public class VineCreator : MonoBehaviour
 {
-    public event EventHandler DamageFor;
+    public event EventHandler DamageFor; // is this in use?
+
     private enum MouseButton
     {
         LeftClick = 0,
         RightClick = 1
     }
 
-    private const int MouseButtonIndex = (int)MouseButton.LeftClick;
-    private const int MouseButtonRight = (int)MouseButton.RightClick;
+    private const int MouseButtonIndex = (int)MouseButton.LeftClick; // for easily swapping vine drawing keybind
 
     [SerializeField]
     private LineRenderer tempLineRenderer;
     [SerializeField]
     private float distance;
+    [SerializeField]
+    private GameObject budPrefab;
 
-    // TODO: snap origin to a nde, only allow dragging from valid nodes
+    // TODO: only allow dragging from valid nodes
 
     private Node closestNodeToClickPos = null;
 
@@ -31,7 +33,6 @@ public class VineCreator : MonoBehaviour
         if (isMouseDown)
         {
             // Draw a temporary line to the mouse
-            // TODO: add a new material to show the line is temporary
             tempLineRenderer.SetPosition(tempLineRenderer.positionCount - 1, GetMousePositionInWorldSpace());
         }
     }
@@ -52,8 +53,6 @@ public class VineCreator : MonoBehaviour
 
                 isMouseDown = true;
             }
-
-
         }
 
         if (Input.GetMouseButtonUp(MouseButtonIndex))
@@ -63,7 +62,17 @@ public class VineCreator : MonoBehaviour
                 // Link two nodes
                 Vector3 releasePosition = GetMousePositionInWorldSpace();
                 Node closestNodeToReleasePos = FindClosestNode(releasePosition);
-                CreateEdge(closestNodeToClickPos, closestNodeToReleasePos);
+
+                // Only allowed to attach vines to settlements, other nodes can be the origin for a vine, but not the destination
+                var settlement = closestNodeToReleasePos.transform.gameObject.GetComponent<Settlement>(); // does this mean we should search for our closest settlement instead of node?
+                if (settlement != null)
+                {
+                    CreateEdge(closestNodeToClickPos, closestNodeToReleasePos);
+
+                    // Spawn a bud
+                    var bud = Instantiate(budPrefab);
+                    bud.transform.position = closestNodeToReleasePos.transform.position;
+                }
 
                 // Hide the temporary line, final rendering is handled by the node class
                 tempLineRenderer.positionCount = 0;
@@ -71,11 +80,11 @@ public class VineCreator : MonoBehaviour
                 closestNodeToClickPos = null;
                 isMouseDown = false;
             }
-
         }
+
         //TODO
         //CAN BE MOVED LATER IF NEEDED, WAS JUST TESTING.
-        if (Input.GetMouseButtonDown(MouseButtonRight))
+        if (Input.GetMouseButtonDown((int)MouseButton.RightClick))
         {
             Vector3 mouseWorldPosition = GetMousePositionInWorldSpace();
             Node target = FindClosestNode(mouseWorldPosition);

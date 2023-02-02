@@ -881,6 +881,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempLineRenderer: {fileID: 2092979555}
+  distance: 10
+  budPrefab: {fileID: 4984889340382015907, guid: 22ae71b9028177342adffddfb9c0c2ef, type: 3}
 --- !u!4 &1577768216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1993194666307645496, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
