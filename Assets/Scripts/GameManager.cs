@@ -18,6 +18,9 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         RegisterAllNodes();
+
+        //Start Timer
+        if(TimeController.instance!= null) TimeController.instance.StartTimer();
     }
 
     private void RegisterAllNodes()
