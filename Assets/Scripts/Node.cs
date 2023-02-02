@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Node : MonoBehaviour
 {
+    public HealthManager healthManager;
     // TODO Move these to data source
     private const float LineWidth = 0.1f;
     private Color lineColor = Color.green;
@@ -13,6 +14,10 @@ public class Node : MonoBehaviour
     public int Depth { get; private set; }
 
     public int EdgeCount { get; private set; }
+    void Start()
+    {
+        healthManager = gameObject.GetComponentInChildren<HealthManager>();
+    }
 
     public void AddAdjacentNode(Node n)
     {

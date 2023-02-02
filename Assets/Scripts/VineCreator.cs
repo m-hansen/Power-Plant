@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
 public class VineCreator : MonoBehaviour
 {
+    public event EventHandler DamageFor;
     private enum MouseButton
     {
         LeftClick = 0,
@@ -9,6 +11,7 @@ public class VineCreator : MonoBehaviour
     }
 
     private const int MouseButtonIndex = (int)MouseButton.LeftClick;
+    private const int MouseButtonRight = (int)MouseButton.RightClick;
 
     [SerializeField]
     private LineRenderer tempLineRenderer;
@@ -70,6 +73,19 @@ public class VineCreator : MonoBehaviour
             }
 
         }
+        //TODO
+        //CAN BE MOVED LATER IF NEEDED, WAS JUST TESTING.
+        if (Input.GetMouseButtonDown(MouseButtonRight))
+        {
+            Vector3 mouseWorldPosition = GetMousePositionInWorldSpace();
+            Node target = FindClosestNode(mouseWorldPosition);
+            float dist = Vector3.Distance(mouseWorldPosition, target.transform.position);
+            if (dist < distance)
+            {
+                target.healthManager.HealFor(20);
+            }
+        }
+        //
     }
 
     private void CreateEdge(Node n1, Node n2)

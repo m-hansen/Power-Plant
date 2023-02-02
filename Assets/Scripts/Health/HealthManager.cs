@@ -1,26 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class HealthManager : MonoBehaviour
 {
-
-    [SerializeField]
-    private float tickRate = 1;
+    public Transform prefabHealthBar;
     [SerializeField]
     private Vector3 healthBarOffset = new Vector3(0, 0.85f);
     [SerializeField]
+    private float health = 100;
+    [SerializeField]
+    private float maxHealth = 100f;
+    [SerializeField]
+    private float tickRate = 1;
+    [SerializeField]
     private bool pauseTick = false;
-
-    private float hp;
     private float nextTick = 1;
     HealthScript healthScript;
-    public Transform prefabHealthBar;
 
     void Start()
     {
-        healthScript = new HealthScript(100, 100);
+        healthScript = new HealthScript(health, maxHealth);
         Transform healthBarTransform = Instantiate(prefabHealthBar, gameObject.transform.position + healthBarOffset, Quaternion.identity);
         HealthBar healthBar = healthBarTransform.GetComponent<HealthBar>();
         healthBar.Setup(healthScript);
@@ -71,8 +74,20 @@ public class HealthManager : MonoBehaviour
     {
         pauseTick = false;
     }
+    //Should be callable from Whereever you can reference the prefab
+    //Used for additional systems or applying effect in tandem with damage
+    public void HealFor(float amount)
+    {
+        healthScript.Heal(amount);
+        //Add other events or checks here(Sounds, Pop up text, etc)
+    }
+    public void DamageFor(float amount)
+    {
+        healthScript.Damage(amount);
+        //Add other events or checks here
+    }
 
-    private void HealthScript_OnDeath(object sender, System.EventArgs e)
+    private void HealthScript_OnDeath(object sender, EventArgs e)
     {
         PauseTick();
     }
