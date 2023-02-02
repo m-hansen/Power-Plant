@@ -12,6 +12,8 @@ public class VineCreator : MonoBehaviour
 
     [SerializeField]
     private LineRenderer tempLineRenderer;
+    [SerializeField]
+    private float distance;
 
     // TODO: snap origin to a nde, only allow dragging from valid nodes
 
@@ -38,26 +40,35 @@ public class VineCreator : MonoBehaviour
             // Find the node nearest the mouse click
             Vector3 mouseWorldPosition = GetMousePositionInWorldSpace();
             closestNodeToClickPos = FindClosestNode(mouseWorldPosition);
+            float dist = Vector3.Distance(mouseWorldPosition, closestNodeToClickPos.transform.position);
+            if (dist < distance)
+            {
+                // Show a temporary line to the mouse position
+                tempLineRenderer.positionCount = 2;
+                tempLineRenderer.SetPosition(0, closestNodeToClickPos.transform.position);
 
-            // Show a temporary line to the mouse position
-            tempLineRenderer.positionCount = 2;
-            tempLineRenderer.SetPosition(0, closestNodeToClickPos.transform.position);
+                isMouseDown = true;
+            }
 
-            isMouseDown = true;
+
         }
 
         if (Input.GetMouseButtonUp(MouseButtonIndex))
         {
-            // Link two nodes
-            Vector3 releasePosition = GetMousePositionInWorldSpace();
-            Node closestNodeToReleasePos = FindClosestNode(releasePosition);
-            CreateEdge(closestNodeToClickPos, closestNodeToReleasePos);
+            if (isMouseDown)
+            {
+                // Link two nodes
+                Vector3 releasePosition = GetMousePositionInWorldSpace();
+                Node closestNodeToReleasePos = FindClosestNode(releasePosition);
+                CreateEdge(closestNodeToClickPos, closestNodeToReleasePos);
 
-            // Hide the temporary line, final rendering is handled by the node class
-            tempLineRenderer.positionCount = 0;
+                // Hide the temporary line, final rendering is handled by the node class
+                tempLineRenderer.positionCount = 0;
 
-            closestNodeToClickPos = null;
-            isMouseDown = false;
+                closestNodeToClickPos = null;
+                isMouseDown = false;
+            }
+
         }
     }
 
