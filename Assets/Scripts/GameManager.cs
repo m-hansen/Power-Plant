@@ -11,12 +11,22 @@ public class GameManager : Singleton<GameManager>
         Editing,
     }
 
+    [SerializeField]
+    private int startingPrimaryResource = 25;
+
     public GameStateEnum GameState { get; private set; } = GameStateEnum.Observing; // Do not modify this variable directly - call ChangeGameState instead
 
     public List<Node> Nodes { get; private set; }
 
+    public GameObject Plant { get; private set; }
+
+    public int PrimaryResource { get; private set; } // TODO: name me
+
     private void Awake()
     {
+        Plant = GameObject.FindWithTag("Player");
+        PrimaryResource = startingPrimaryResource;
+
         RegisterAllNodes();
 
         //Start Timer

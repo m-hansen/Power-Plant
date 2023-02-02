@@ -3,98 +3,119 @@ using System;
 
 public class VineCreator : MonoBehaviour
 {
-    public event EventHandler DamageFor; // is this in use?
-
-    private enum MouseButton
-    {
-        LeftClick = 0,
-        RightClick = 1
-    }
-
-    private const int MouseButtonIndex = (int)MouseButton.LeftClick; // for easily swapping vine drawing keybind
-
     [SerializeField]
     private LineRenderer tempLineRenderer;
-    [SerializeField]
-    private float distance;
+
+    [SerializeField, Tooltip("This is used as a buffer to allow misclicks when dragging vines.")]
+    private float nodeSnapDistance;
+
     [SerializeField]
     private GameObject budPrefab;
 
-    // TODO: only allow dragging from valid nodes
-
-    private Node closestNodeToClickPos = null;
-
-    private bool isMouseDown = false;
+    private Node originNode = null;
+    private bool isVineCreationInProgress = false;
 
     private void Update()
     {
         HandleInput();
 
-        if (isMouseDown)
+        if (isVineCreationInProgress)
         {
-            // Draw a temporary line to the mouse
+            // Draw a temporary line to the cursor position
             tempLineRenderer.SetPosition(tempLineRenderer.positionCount - 1, Util.GetMousePositionInWorldSpace());
         }
     }
 
     private void HandleInput()
     {
-        if (Input.GetMouseButtonDown(MouseButtonIndex))
+        if (Input.GetMouseButtonDown(0))
         {
-            // Find the node nearest the mouse click
-            Vector3 mouseWorldPosition = Util.GetMousePositionInWorldSpace();
-            closestNodeToClickPos = Util.FindClosestNode(mouseWorldPosition);
-            float dist = Vector3.Distance(mouseWorldPosition, closestNodeToClickPos.transform.position);
-            if (dist < distance)
-            {
-                // Show a temporary line to the mouse position
-                tempLineRenderer.positionCount = 2;
-                tempLineRenderer.SetPosition(0, closestNodeToClickPos.transform.position);
-
-                isMouseDown = true;
-            }
+            EnterVineCreationMode();
         }
 
-        if (Input.GetMouseButtonUp(MouseButtonIndex))
+        if (Input.GetMouseButtonUp(0) && isVineCreationInProgress)
         {
-            if (isMouseDown)
-            {
-                // Link two nodes
-                Vector3 releasePosition = Util.GetMousePositionInWorldSpace();
-                Node closestNodeToReleasePos = Util.FindClosestNode(releasePosition);
+            ExitVineCreationMode();
+        }
+    }
 
-                // Only allowed to attach vines to settlements, other nodes can be the origin for a vine, but not the destination
-                var settlement = closestNodeToReleasePos.transform.gameObject.GetComponent<Settlement>(); // does this mean we should search for our closest settlement instead of node?
-                if (settlement != null)
-                {
-                    CreateEdge(closestNodeToClickPos, closestNodeToReleasePos);
+    private void EnterVineCreationMode()
+    {
+        // Find the node nearest the mouse click
+        Vector3 mouseWorldPosition = Util.GetMousePositionInWorldSpace();
+        originNode = Util.FindClosestNode(mouseWorldPosition);
 
-                    // Spawn a bud
-                    var bud = Instantiate(budPrefab);
-                    bud.transform.position = closestNodeToReleasePos.transform.position;
-                }
+        float misclickDistance = Vector3.Distance(mouseWorldPosition, originNode.transform.position);
+        if (misclickDistance < nodeSnapDistance)
+        {
+            // Show a temporary line to the mouse position
+            tempLineRenderer.positionCount = 2;
+            tempLineRenderer.SetPosition(0, originNode.transform.position);
 
-                // Hide the temporary line, final rendering is handled by the node class
-                tempLineRenderer.positionCount = 0;
+            isVineCreationInProgress = true;
+        }
+    }
 
-                closestNodeToClickPos = null;
-                isMouseDown = false;
-            }
+    private void ExitVineCreationMode()
+    {
+        // Link two nodes
+        Vector3 releasePosition = Util.GetMousePositionInWorldSpace();
+        Node destinationNode = Util.FindClosestNode(releasePosition);
+
+        if (IsValidVineConnection(originNode, destinationNode))
+        {
+            ConnectVineToNode(destinationNode);
         }
 
-        //TODO
-        //CAN BE MOVED LATER IF NEEDED, WAS JUST TESTING.
-        if (Input.GetMouseButtonDown((int)MouseButton.RightClick))
+        // Hide the temporary line, final rendering is handled by the node class
+        tempLineRenderer.positionCount = 0;
+
+        originNode = null;
+        isVineCreationInProgress = false;
+    }
+
+    private bool IsValidVineConnection(Node origin, Node destination)
+    {
+        var settlement = destination.GetComponent<Settlement>();
+
+        // The destination node must be a settlement
+        if (settlement == null)
         {
-            Vector3 mouseWorldPosition = Util.GetMousePositionInWorldSpace();
-            Node target = Util.FindClosestNode(mouseWorldPosition);
-            float dist = Vector3.Distance(mouseWorldPosition, target.transform.position);
-            if (dist < distance)
-            {
-                target.healthManager.HealFor(20);
-            }
+            Debug.Log("Unable to connect a Vine. The destination is not a Settlement.");
+            return false;
         }
-        //
+
+        // The origin node must be the power plant or a settlement that is connected to the power plant in some way
+        if (origin.GetComponent<PowerPlant>() == null && !settlement.IsConnectedToPowerPlant())
+        {
+            Debug.Log("Unable to connect a Vine. The originating Settlement is not connected to the Power Plant.");
+            return false;
+        }
+
+        // The power plant has enough resources to pay the destination settlement's cost
+        if (GameManager.Instance.Plant.GetComponent<PowerPlant>().ResourceValue < settlement.Cost)
+        {
+            Debug.Log("Unable to connect a Vine. You do not have enough resources.");
+            return false;
+        }
+
+        Debug.Log($"Vine connected: [{origin.name}] -> [{destination.name}]");
+        return true;
+    }
+
+    private void ConnectVineToNode(Node destination)
+    {
+        // Pay for the vine
+        var plantScript = GameManager.Instance.Plant.GetComponent<PowerPlant>();
+        var settlementScript = destination.GetComponent<Settlement>();
+        plantScript.ExpendResource(settlementScript.Cost);
+
+        // Update the data structures
+        CreateEdge(originNode, destination);
+
+        // Spawn a bud - this may be removed soon
+        var bud = Instantiate(budPrefab);
+        bud.transform.position = destination.transform.position;
     }
 
     private void CreateEdge(Node n1, Node n2)
