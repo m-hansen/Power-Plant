@@ -29,17 +29,11 @@ public class HealthScript
         if (health < 0)
         {
             health = 0;
-            if (OnDeath != null)
-            {
-                OnDeath(this, EventArgs.Empty);
-            }
+            OnDeath?.Invoke(this, EventArgs.Empty);
 
 
         }
-        if (OnHealthChanged != null) 
-        { 
-            OnHealthChanged(this, EventArgs.Empty);
-        }
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
     public void Heal(float healAmount)
     {

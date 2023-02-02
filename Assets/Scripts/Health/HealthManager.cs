@@ -20,6 +20,7 @@ public class HealthManager : MonoBehaviour
     private bool pauseTick = false;
     private float nextTick = 1;
     HealthScript healthScript;
+    public float tickingFor;
 
     void Start()
     {
@@ -36,7 +37,7 @@ public class HealthManager : MonoBehaviour
         if (Time.time >= nextTick && !pauseTick)
         {
             nextTick = Mathf.FloorToInt(Time.time) + tickRate;
-            Tick();
+            TickFor(tickingFor);
         }
 
         //TODO
@@ -54,17 +55,18 @@ public class HealthManager : MonoBehaviour
         //
     }
 
-    void Tick()
+    public void TickFor(float value)
     {
         if (healthScript != null)
         {
-            healthScript.Damage(5);
+            tickingFor = value;
+            healthScript.Damage(value);
+            UnpauseTick();
         }
         else
         {
             PauseTick();
         }
-        //Debug.Log("Health" + healthScript.GetHealth());
     }
     public void PauseTick()
     {
@@ -74,7 +76,7 @@ public class HealthManager : MonoBehaviour
     {
         pauseTick = false;
     }
-    //Should be callable from Whereever you can reference the prefab
+
     //Used for additional systems or applying effect in tandem with damage
     public void HealFor(float amount)
     {

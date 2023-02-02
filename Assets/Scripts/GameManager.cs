@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 // Do not add more than one of these in a scene
 public class GameManager : Singleton<GameManager>
@@ -11,8 +12,23 @@ public class GameManager : Singleton<GameManager>
         Editing,
     }
 
+    public TMP_Text invokeText;
+    [SerializeField]
+    private float timeIncrement;
+    private float pauseIncrement;
+    //private bool timerStarted;
+    private float invokeTime;
+    private bool infectionStarted = false;
+
+    [SerializeField]
+    private float initialinfectionTime = 0.5f;
+
+
     [SerializeField]
     private PowerPlant powerPlant;
+
+    [SerializeField]
+    private CreepNode creep;
 
     [SerializeField]
     private int startingPrimaryResource = 25;
@@ -22,6 +38,7 @@ public class GameManager : Singleton<GameManager>
     public List<Node> Nodes { get; private set; }
 
     public PowerPlant Plant { get => powerPlant; }
+    public CreepNode Creep { get => creep; }
 
     public int PrimaryResource { get; private set; } // TODO: name me
 
@@ -31,14 +48,42 @@ public class GameManager : Singleton<GameManager>
 
         RegisterAllNodes();
 
-        //Start Timer
-        if(TimeController.instance!= null) TimeController.instance.StartTimer();
+    }
+    private void Start()
+    {
+        //Starts timer
+        InvokeRepeating("InvokeTimer", 0, timeIncrement);
+    }
+    public void Pause()
+    {
+
+        //timer pause
+        pauseIncrement = timeIncrement;
+        timeIncrement = 0;
+    }
+    public void Unpause()
+    {
+        //timer unpause
+        timeIncrement = pauseIncrement;
     }
 
+    void InvokeTimer()
+    {
+        invokeText.text = invokeTime.ToString("00:00.00");
+        invokeTime = invokeTime + timeIncrement;
+        if (invokeTime > initialinfectionTime && !infectionStarted)
+        {
+            creep.InfectNode();
+            infectionStarted = true;
+        }
+    }
     private void RegisterAllNodes()
     {
         Nodes = new List<Node>(FindObjectsOfType<Node>());
     }
+
+
+
 
     // TODO : We may need/want to make this public in the future. For now, we don't need to.
     private void ChangeGameState(GameStateEnum newState)
