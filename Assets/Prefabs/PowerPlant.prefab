@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 7787040882985068383}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3773908739817971683
 SpriteRenderer:
@@ -136,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6bb858c561c74b4791c2206882a1720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthManager: {fileID: 0}
 --- !u!114 &3709124763910748455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,12 +148,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a60d977dc1d48047aa10bfba3738019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabHealthBar: {fileID: 9108349239082846840, guid: 30b1f1900e258414eb7774a885c2f2a4, type: 3}
+  prefabHealthBar: {fileID: 9108349239082846843, guid: 30b1f1900e258414eb7774a885c2f2a4, type: 3}
   healthBarOffset: {x: 0, y: 0.85, z: 0}
   health: 100
   maxHealth: 100
   tickRate: 1
-  pauseTick: 0
+  pauseTick: 1
+  tickingFor: 0
 --- !u!114 &9117398458676991754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 6389188059185185440}
   - component: {fileID: 6598291670049570146}
   - component: {fileID: 160254992421234292}
-  - component: {fileID: 5261697722061458580}
+  - component: {fileID: 8751089828441882822}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5261697722061458580
+--- !u!114 &8751089828441882822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

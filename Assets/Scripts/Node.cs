@@ -14,11 +14,11 @@ public class Node : MonoBehaviour
 
     public int EdgeCount { get; private set; }
 
-    public HealthManager HealthManager { get; private set; }
+    public HealthSystem HealthSystem { get; private set; }
 
     void Start()
     {
-        HealthManager = gameObject.GetComponentInChildren<HealthManager>();
+        HealthSystem = gameObject.GetComponentInChildren<HealthSystem>();
     }
 
     public void AddAdjacentNode(Node n)

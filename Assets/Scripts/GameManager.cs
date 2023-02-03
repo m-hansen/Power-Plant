@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 
@@ -16,22 +17,17 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private float timeIncrement;
     private float pauseIncrement;
-    //private bool timerStarted;
     private float invokeTime;
-    private bool infectionStarted = false;
-
-    [SerializeField]
-    private float initialinfectionTime = 0.5f;
-
+    public bool gamePaused { get; private set; }
 
     [SerializeField]
     private PowerPlant powerPlant;
+    [SerializeField]
+    private int startingPrimaryResource = 25;
 
     [SerializeField]
     private CreepNode creep;
 
-    [SerializeField]
-    private int startingPrimaryResource = 25;
 
     public GameStateEnum GameState { get; private set; } = GameStateEnum.Observing; // Do not modify this variable directly - call ChangeGameState instead
 
@@ -53,6 +49,7 @@ public class GameManager : Singleton<GameManager>
     {
         //Starts timer
         InvokeRepeating("InvokeTimer", 0, timeIncrement);
+        gamePaused = false;
     }
     public void Pause()
     {
@@ -60,22 +57,19 @@ public class GameManager : Singleton<GameManager>
         //timer pause
         pauseIncrement = timeIncrement;
         timeIncrement = 0;
+        gamePaused = true;
     }
     public void Unpause()
     {
         //timer unpause
         timeIncrement = pauseIncrement;
+        gamePaused = false;
     }
 
     void InvokeTimer()
     {
         invokeText.text = invokeTime.ToString("00:00.00");
         invokeTime = invokeTime + timeIncrement;
-        if (invokeTime > initialinfectionTime && !infectionStarted)
-        {
-            creep.InfectNode();
-            infectionStarted = true;
-        }
     }
     private void RegisterAllNodes()
     {
