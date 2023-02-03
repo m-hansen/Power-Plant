@@ -37,6 +37,25 @@ public static class Util
         return sortedNodes.Keys.ToArray();
     }
 
+    public static Settlement[] FindAllClosestSettlements(Vector3 point)
+    {
+        // FIXME pretty innefficient, for prototyping only
+
+        var allNodes = FindAllClosestNodes(point);
+
+        List<Settlement> allSettlements = new List<Settlement>();
+        foreach (Node n in allNodes)
+        {
+            var settlement = n.gameObject?.GetComponent<Settlement>();
+            if (settlement != null)
+            {
+                allSettlements.Add(settlement);
+            }
+        }
+
+        return allSettlements.ToArray();
+    }
+
     public static Vector3 GetMousePositionInWorldSpace()
     {
         Vector3 mousePosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
