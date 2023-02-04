@@ -70,8 +70,7 @@ public class GameManager : Singleton<GameManager>
     {
         int minutes = (int)(invokeTime / 60) % 60;
         int seconds = (int)(invokeTime % 60);
-        //int miliseconds = (int)(invokeTime * 6f);
-        invokeText.text = string.Format("{0:00}:{1:00}", minutes, seconds); //seconds.ToString("00:00.00");
+        invokeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         invokeTime += timeIncrement;
     }
     private void RegisterAllNodes()

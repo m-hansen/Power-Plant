@@ -109,6 +109,13 @@ public class VineCreator : MonoBehaviour
         var settlementScript = destination.GetComponent<Settlement>();
         GameManager.Instance.Plant.ExpendResource(settlementScript.Cost);
 
+        //Check if destination has resource
+        //If it does add resource per second
+        if (settlementScript.hasResource)
+        {
+            GameManager.Instance.Plant.AddResourcePerSecond(settlementScript.GetResourcePerSecond());
+        }
+
         // Update the data structures
         CreateEdge(originNode, destination);
 

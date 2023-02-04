@@ -6,10 +6,19 @@ public class Settlement : MonoBehaviour
     private const float CostMultiplier = 3.5f; // temporary to pad numbers
 
     public int Cost { get; private set; }
+    //MIGHT NOT NEED BOOL
+    public bool hasResource { get; private set; }
+    [SerializeField]
+    private int resourcePerSecond;
 
     private void Start()
     {
         Cost = (int)CalculateBaseCost(); // truncate our generated cost for simplicity
+        if(resourcePerSecond>0)
+        {
+            hasResource = true;
+            //TODO: Change Color to blue and add water icon and +1
+        }
     }
 
     private float CalculateBaseCost()
@@ -21,8 +30,13 @@ public class Settlement : MonoBehaviour
 
     public bool IsConnectedToPowerPlant()
     {
+
         // TODO: search graph space
-        // consider running a search from the power plant instead
+        // FIXME: is already in use, plsfix :)
         return true;
+    }
+    public int GetResourcePerSecond()
+    {
+        return resourcePerSecond;
     }
 }
