@@ -36,7 +36,7 @@ public class CreepNode : Node
         StartCoroutine(InfectionStart());
     }
 
-    IEnumerator InfectionStart()
+    private IEnumerator InfectionStart()
     {
         while (GameManager.Instance.IsGamePaused) yield return null;
 
@@ -46,6 +46,7 @@ public class CreepNode : Node
         foreach (var settlement in settlementsToDamage)
         {
             settlement.StartDamageTick(creepTickDamage);
+            CreateEdge(this, settlement);
         }
     }
 
@@ -68,5 +69,12 @@ public class CreepNode : Node
         }
 
         return settlementsToReturn.ToArray();
+    }
+
+    private void CreateEdge(Node n1, Node n2)
+    {
+        // The graph is bidirectional
+        n1.AddAdjacentNode(n2);
+        n2.AddAdjacentNode(n1);
     }
 }
