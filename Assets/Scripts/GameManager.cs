@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 // Do not add more than one of these in a scene
@@ -19,7 +17,7 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Gameplay")]
     [SerializeField]
-    private int startingPrimaryResource = 25;
+    private int startingResources = 25;
 
     [Header("Audio")]
     [SerializeField]
@@ -33,14 +31,12 @@ public class GameManager : Singleton<GameManager>
     public bool IsGamePaused { get; private set; }
 
     // Note nodes are not dynamic and will only be created/updated on launch
-    // Nodes are currently SEttlements and the PowerPlant
+    // Nodes are currently Settlements and the PowerPlant
     public Node[] Nodes { get; private set; } 
 
-    public PowerPlant Plant { get => powerPlant; }
+    public PowerPlant Player { get => powerPlant; }
 
     public CreepNode Creep { get => creep; }
-
-    public int PrimaryResource { get; private set; } // TODO: name me
 
     public Stopwatch GameplayTimer { get => time; }
 
@@ -58,7 +54,7 @@ public class GameManager : Singleton<GameManager>
     {
         RegisterNodes();
 
-        PrimaryResource = startingPrimaryResource;
+        Player.PrimaryResource = startingResources;
         AudioManager.Instance.PlayMusic(backgroundMusic);
 
         time.Clear(); // Likely already done because the scene would've been loaded and the timer is not handled by the engine, just being safe

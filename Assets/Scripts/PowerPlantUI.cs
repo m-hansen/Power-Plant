@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PowerPlantUI : MonoBehaviour
@@ -11,7 +10,7 @@ public class PowerPlantUI : MonoBehaviour
 
     void Update()
     {
-        resourceLabel.text = ((int)powerPlantScript.ResourceValue).ToString();
+        resourceLabel.text = ((int)powerPlantScript.PrimaryResource).ToString();
     }
     
     public void SpendResourceUI(float n)

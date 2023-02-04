@@ -11,7 +11,15 @@ public class Settlement : Node
     [SerializeField]
     private int resourcePerSecond;
 
+    [SerializeField]
+    private Color vineColor = Color.green;
+
     public int Id { get; set; }
+
+    private void Awake()
+    {
+        edgeColor = vineColor;
+    }
 
     private void Start()
     {
@@ -36,7 +44,7 @@ public class Settlement : Node
     {
         // For now just treat cost = distance from the plant origin
         // We may have a more complex formula later, or assign costs by hand if low on time
-        return Vector3.Distance(GameManager.Instance.Plant.transform.position, transform.position) * CostMultiplier;
+        return Vector3.Distance(GameManager.Instance.Player.transform.position, transform.position) * CostMultiplier;
     }
 
     public bool IsConnectedToPowerPlant()

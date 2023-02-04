@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 public class Node : MonoBehaviour
 {
-    // TODO Move these to data source
     private const float LineWidth = 0.1f;
-    private Color lineColor = Color.green;
-    ////////////
+    private const int InvalidDepth = -1;
 
     protected List<Node> adjacentNodes = new List<Node>(); // edges will be stored as an adjacency list of other nodes, we expect a sparse graph by design
 
-    public int Depth { get; private set; }
+    protected Color edgeColor = Color.black;
+
+    public int Depth { get; private set; } = InvalidDepth;
 
     public int EdgeCount { get; private set; }
 
@@ -27,6 +27,22 @@ public class Node : MonoBehaviour
 
         // FIXME extremely inefficient to just spawn a bunch of line renderers - this is for prototyping purposes only
         DrawEdge(transform.position, n.transform.position);
+
+        if (Depth <= InvalidDepth)
+        {
+            if (this is PowerPlant)
+            {
+                Depth = 0;
+            }
+            else if (n is PowerPlant)
+            {
+                Depth = 1;
+            }
+            else
+            {
+                Depth = n.Depth + 1;
+            }
+        }
     }
 
     private void DrawEdge(Vector3 origin, Vector3 destination)
@@ -40,8 +56,8 @@ public class Node : MonoBehaviour
         lr.startWidth = LineWidth;
         lr.endWidth = LineWidth;
         lr.material = new Material(Shader.Find("Sprites/Default"));
-        lr.startColor = lineColor;
-        lr.endColor = lineColor;
+        lr.startColor = edgeColor;
+        lr.endColor = edgeColor;
         lr.positionCount = 2;
         lr.SetPosition(0, origin);
         lr.SetPosition(1, destination);

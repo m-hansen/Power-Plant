@@ -10,10 +10,19 @@ public class CreepNode : MonoBehaviour
     [SerializeField]
     private int infectPerNode = 2;
 
+    [SerializeField, Tooltip("Read the comments in awake before using.")]
+    private Color vineColor = Color.magenta;
 
     [SerializeField]
     private float waitBeforeSpread = 0.5f;
     public float infectionRadius { get; private set; }
+
+    //private void Awake()
+    //{
+        // TODO inherit from node instead of monobehavior for this functionality
+        // I'm not doing this because I dont want to mess up anything you're working on -M
+        //edgeColor = vineColor;
+    //}
 
     private void Start()
     {

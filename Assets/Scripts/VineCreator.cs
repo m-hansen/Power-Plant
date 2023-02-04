@@ -91,7 +91,7 @@ public class VineCreator : MonoBehaviour
         }
 
         // The power plant has enough resources to pay the destination settlement's cost
-        if (GameManager.Instance.Plant.ResourceValue < settlement.Cost)
+        if (GameManager.Instance.Player.PrimaryResource < settlement.Cost)
         {
             Debug.Log("Unable to connect a Vine. You do not have enough resources.");
             return false;
@@ -105,13 +105,13 @@ public class VineCreator : MonoBehaviour
     {
         // Pay for the vine
         var settlementScript = destination.GetComponent<Settlement>();
-        GameManager.Instance.Plant.ExpendResource(settlementScript.Cost);
+        GameManager.Instance.Player.ExpendResource(settlementScript.Cost);
 
         //Check if destination has resource
         //If it does add resource per second
         if (settlementScript.hasResource)
         {
-            GameManager.Instance.Plant.AddResourcePerSecond(settlementScript.GetResourcePerSecond());
+            GameManager.Instance.Player.AddResourcePerSecond(settlementScript.GetResourcePerSecond());
         }
 
         // Update the data structures
