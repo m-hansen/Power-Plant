@@ -347,6 +347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -618,6 +622,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -691,6 +699,10 @@ PrefabInstance:
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_Name
       value: Settlement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -850,6 +862,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -982,6 +998,10 @@ PrefabInstance:
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_Name
       value: Settlement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1125,6 +1145,10 @@ PrefabInstance:
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_Name
       value: Settlement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1281,6 +1305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1350,6 +1378,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1418,6 +1450,10 @@ PrefabInstance:
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_Name
       value: Settlement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7763959516303270670, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: id
@@ -1751,6 +1787,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1829,6 +1869,10 @@ PrefabInstance:
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_Name
       value: Settlement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2000,6 +2044,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2129,6 +2177,10 @@ PrefabInstance:
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_Name
       value: Settlement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2592,6 +2644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2788,6 +2844,10 @@ PrefabInstance:
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_Name
       value: Settlement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
