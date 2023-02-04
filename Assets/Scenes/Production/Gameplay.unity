@@ -3120,6 +3120,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 439498207}
     - target: {fileID: 8899966754031356844, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
+      propertyPath: isMutedOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8899966754031356844, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
       propertyPath: backgroundMusic
       value: 
       objectReference: {fileID: 8300000, guid: ff43379659c5951408f0d728a1a8e56f, type: 3}
