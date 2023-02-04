@@ -8,7 +8,7 @@ public class Node : MonoBehaviour
     private Color lineColor = Color.green;
     ////////////
 
-    private List<Node> adjacentNodes = new List<Node>(); // edges will be stored as an adjacency list of other nodes, we expect a sparse graph by design
+    protected List<Node> adjacentNodes = new List<Node>(); // edges will be stored as an adjacency list of other nodes, we expect a sparse graph by design
 
     public int Depth { get; private set; }
 

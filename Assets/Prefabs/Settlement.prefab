@@ -403,7 +403,6 @@ GameObject:
   - component: {fileID: 7621604907243956867}
   - component: {fileID: 221952983}
   - component: {fileID: 7912340218246315786}
-  - component: {fileID: 1241888896978316814}
   - component: {fileID: 7810818803914776872}
   m_Layer: 0
   m_Name: Settlement
@@ -538,18 +537,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourcePerSecond: 0
---- !u!114 &1241888896978316814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6166899645302836821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6bb858c561c74b4791c2206882a1720, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7810818803914776872
 MonoBehaviour:
   m_ObjectHideFlags: 0

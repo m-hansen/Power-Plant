@@ -86,7 +86,8 @@ public class VineCreator : MonoBehaviour
         }
 
         // The origin node must be the power plant or a settlement that is connected to the power plant in some way
-        if (origin.GetComponent<PowerPlant>() == null && !settlement.IsConnectedToPowerPlant())
+        var originSettlement = origin.GetComponent<Settlement>();
+        if (origin.GetComponent<PowerPlant>() == null && (originSettlement != null && !originSettlement.IsConnectedToPowerPlant()))
         {
             Debug.Log("Unable to connect a Vine. The originating Settlement is not connected to the Power Plant.");
             return false;

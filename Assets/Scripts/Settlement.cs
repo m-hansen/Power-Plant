@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Assumptions: No Settlements can overlap each other
-public class Settlement : MonoBehaviour
+public class Settlement : Node
 {
     private const float CostMultiplier = 3.5f; // temporary to pad numbers
 
@@ -21,6 +21,15 @@ public class Settlement : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (IsConnectedToPowerPlant())
+        {
+            // Temp for debugging / testing
+            GetComponent<SpriteRenderer>().color = Color.green;
+        }
+    }
+
     private float CalculateBaseCost()
     {
         // For now just treat cost = distance from the plant origin
@@ -30,11 +39,12 @@ public class Settlement : MonoBehaviour
 
     public bool IsConnectedToPowerPlant()
     {
-
-        // TODO: search graph space
-        // FIXME: is already in use, plsfix :)
-        return true;
+        // HACK - lets assume any node with ANY adjacent nodes MUST be connected to a power plant... for now. This assumption should be true for this game anyway but-
+        // it wont be true if we're checking in teh creep graph OR if we have two nodes connected somehow.
+        // This will be cleaned up tomorrow on 2/4/23
+        return adjacentNodes.Count > 0;
     }
+
     public int GetResourcePerSecond()
     {
         return resourcePerSecond;
