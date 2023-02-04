@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5625458780096700782}
   - component: {fileID: 5625458780096700818}
   - component: {fileID: 4959345811315359417}
+  - component: {fileID: 6161753594517754661}
   m_Layer: 0
   m_Name: GameplayCamera
   m_TagString: MainCamera
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &5625458780096700780
 Camera:
@@ -123,3 +124,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragSpeed: {x: 20, y: 20}
+--- !u!114 &6161753594517754661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5625458780096700783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd7dff8ccaeb65498db6602e2a1708d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 1
+  minCameraSize: 8
+  maxCameraSize: 15

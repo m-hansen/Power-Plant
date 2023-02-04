@@ -13,7 +13,7 @@ public class Node : MonoBehaviour
 
     public int Depth { get; private set; } = InvalidDepth;
 
-    public int EdgeCount { get; private set; }
+    public int EdgeCount { get => adjacentNodes.Count; }
 
     private bool reverseDepthMechanic = true;
 

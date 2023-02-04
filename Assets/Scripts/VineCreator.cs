@@ -96,6 +96,13 @@ public class VineCreator : MonoBehaviour
             return false;
         }
 
+        // The destination node must not already have connections attached to it
+        if (destination.EdgeCount > 0)
+        {
+            Debug.Log("Unable to connect a Vine. The destination already has connections.");
+            return false;
+        }
+
         Debug.Log($"Vine connected: [{origin.name}] -> [{destination.name}]");
         return true;
     }
