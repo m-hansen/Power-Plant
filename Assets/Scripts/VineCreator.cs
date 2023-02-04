@@ -9,9 +9,6 @@ public class VineCreator : MonoBehaviour
     [SerializeField, Tooltip("This is used as a buffer to allow misclicks when dragging vines.")]
     private float nodeSnapDistance;
 
-    [SerializeField]
-    private GameObject budPrefab;
-
     private Node originNode = null;
     private bool isVineCreationInProgress = false;
 
@@ -119,10 +116,6 @@ public class VineCreator : MonoBehaviour
 
         // Update the data structures
         CreateEdge(originNode, destination);
-
-        // Spawn a bud - this may be removed soon
-        var bud = Instantiate(budPrefab);
-        bud.transform.position = destination.transform.position;
     }
 
     private void CreateEdge(Node n1, Node n2)
