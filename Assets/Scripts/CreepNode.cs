@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CreepNode : Node
 {
-    //[SerializeField]
-    //private int infectPerNode = 2;
+    [SerializeField]
+    private int infectPerNode = 2;
 
     [SerializeField]
     private Color vineColor = Color.magenta;
@@ -14,8 +14,8 @@ public class CreepNode : Node
     [SerializeField]
     private float waitBeforeSpread = 0.5f;
 
-    //[SerializeField]
-    //private float infectionRadius = 5f;
+    [SerializeField]
+    private float infectionRadius = 5f;
 
     private float creepTickDamage = 5f;
 
@@ -46,24 +46,30 @@ public class CreepNode : Node
         foreach (var settlement in settlementsToDamage)
         {
             settlement.StartDamageTick(creepTickDamage);
+            settlement.HealthSystem.prefabHealthBar.SetActive(true);
         }
     }
 
     private Settlement[] FindSettlements()
     {
         // FIXME: we probably should copy less arrays around
-
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 6f);
+        int found = 0;
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, infectionRadius);
         Array.Sort(hitColliders, (a, b) => (int)Mathf.Sign(Vector3.Distance(transform.position, b.transform.position) - Vector3.Distance(transform.position, a.transform.position)));
 
         List<Settlement> settlementsToReturn = new List<Settlement>();
 
-        for (int i = hitColliders.Length; i-- > 0;)
+        for (int i = hitColliders.Length - 1; i >= 0; i--)
         {
+            if(found>= infectPerNode)
+            {
+                break;
+            }
             var settlement = hitColliders[i].GetComponentInChildren<Settlement>();
             if (settlement != null)
             {
                 settlementsToReturn.Add(settlement);
+                found++;
             }
         }
 

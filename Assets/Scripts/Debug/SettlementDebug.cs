@@ -34,6 +34,7 @@ public class SettlementDebug : MonoBehaviour
             plusImg.enabled = true;
             minusImg.enabled = true;
             cost.enabled = false;
+            settlementScript.HealthSystem.prefabHealthBar.SetActive(true);
         }
         else
         {

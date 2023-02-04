@@ -40,10 +40,14 @@ public class HealthSystem : MonoBehaviour
         //
         //
     }
-
-    public void StartTakingDotDamage(float hpPerTick)
+    public void StartHotHealing(float HealPerTick)
     {
-        tickCoroutine = StartCoroutine(Ticker(hpPerTick));
+        tickCoroutine = StartCoroutine(HealTicker(HealPerTick));
+    }
+
+    public void StartTakingDotDamage(float DamagePerTick)
+    {
+        tickCoroutine = StartCoroutine(Ticker(DamagePerTick));
     }
 
     //Can be called for one time damage/heal
@@ -83,7 +87,7 @@ public class HealthSystem : MonoBehaviour
         return health / maxHealth;
     }
 
-    private IEnumerator Ticker(float hpPerTick)
+    private IEnumerator Ticker(float DamagePerTick)
     {
         while (true)
         {
@@ -92,10 +96,24 @@ public class HealthSystem : MonoBehaviour
             while (GameManager.Instance.IsGamePaused) yield return null;
             if (health > 0)
             {
-                TakeDamage(hpPerTick);
+                TakeDamage(DamagePerTick);
             }
         }
     }
+    private IEnumerator HealTicker(float HealPerTick)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(tickRate);
+
+            while (GameManager.Instance.IsGamePaused) yield return null;
+            if (health > 0)
+            {
+                Heal(HealPerTick);
+            }
+        }
+    }
+
 
     private void UpdateHealthBar()
     {

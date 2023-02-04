@@ -15,12 +15,18 @@ public class Node : MonoBehaviour
 
     public int EdgeCount { get; private set; }
 
+    private bool reverseDepthMechanic = true;
+
     public HealthSystem HealthSystem { get; protected set; } // TODO: 8305
 
     void Awake()
     {
         // TODO: 8305
         //HealthSystem = gameObject.GetComponentInChildren<HealthSystem>();
+    }
+    public int GetDepth()
+    {
+        return Depth;
     }
 
     public void AddAdjacentNode(Node n)
@@ -29,20 +35,40 @@ public class Node : MonoBehaviour
 
         // FIXME extremely inefficient to just spawn a bunch of line renderers - this is for prototyping purposes only
         DrawEdge(transform.position, n.transform.position);
-
-        if (Depth <= InvalidDepth)
+        if (!reverseDepthMechanic)
         {
-            if (this is PowerPlant)
+            if (Depth <= InvalidDepth)
             {
-                Depth = 0;
+                if (this is PowerPlant)
+                {
+                    Depth = 0;
+                }
+                else if (n is PowerPlant)
+                {
+                    Depth = 1;
+                }
+                else
+                {
+                    Depth = n.Depth + 1;
+                }
             }
-            else if (n is PowerPlant)
+        }
+        else
+        {
+            if (Depth <= InvalidDepth)
             {
-                Depth = 1;
-            }
-            else
-            {
-                Depth = n.Depth + 1;
+                if (this is PowerPlant)
+                {
+                    Depth = 0;
+                }
+                else if (n is PowerPlant)
+                {
+                    Depth = 5;
+                }
+                else
+                {
+                    Depth = n.Depth - 1;
+                }
             }
         }
     }
