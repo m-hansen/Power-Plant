@@ -22,7 +22,7 @@ public class PowerPlantUI : MonoBehaviour
 
     IEnumerator UpdateSpending()
     {
-        while (GameManager.Instance.gamePaused) yield return null;
+        while (GameManager.Instance.IsGamePaused) yield return null;
         resourceSpentLabel.enabled = true;
         resourceSpentLabel.text = $"-{(int)lastSpent}";
         yield return new WaitForSeconds(1);

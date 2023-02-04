@@ -2,38 +2,18 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [Header("Music")]
+    [Header("Audio Channels")]
     [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioClip backgroundMusic;
-    [SerializeField] private AudioClip intenseBackgroundMusic;
-
-    [Header("Sound Effects")]
     [SerializeField] private AudioSource sfxSource;
 
-    private void Start()
-    {
-        musicSource.clip = backgroundMusic;
-        musicSource.Play();
+    private AudioSource[] allAudioSources;
 
-        // TODO: add second background audio source to fade between music
-        Temp_TestingMusicSwap();
-    }
+    public bool IsMuted { get; private set; } = false;
 
-    #region TestCode
-    private void Temp_TestingMusicSwap()
+    private void Awake()
     {
-        InvokeRepeating("Temp_PlayIntenseMusic", 7, 7);
-        InvokeRepeating("Temp_PlayBkgMusic", 3.5f, 7);
+        allAudioSources = GetComponentsInChildren<AudioSource>();
     }
-    private void Temp_PlayBkgMusic()
-    {
-        PlayMusic(backgroundMusic);
-    }
-    private void Temp_PlayIntenseMusic()
-    {
-        PlayMusic(intenseBackgroundMusic);
-    }
-    #endregion
 
     public void PlayMusic(AudioClip music)
     {
@@ -43,6 +23,16 @@ public class AudioManager : Singleton<AudioManager>
     public void PlaySound(AudioClip sound)
     {
         sfxSource.PlayOneShot(sound);
+    }
+
+    // Use to mute or unmute ALL audio channels handled by the audio manager
+    public void Mute(bool shouldMute)
+    {
+        foreach (var source in allAudioSources)
+        {
+            source.mute = shouldMute;
+        }
+        IsMuted = true;
     }
 
     private void LoadAudio(AudioSource channel, AudioClip sound)

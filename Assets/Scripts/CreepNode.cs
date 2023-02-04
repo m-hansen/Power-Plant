@@ -27,7 +27,7 @@ public class CreepNode : MonoBehaviour
 
     IEnumerator InfectionStart()
     {
-        while (GameManager.Instance.gamePaused) yield return null;
+        while (GameManager.Instance.IsGamePaused) yield return null;
         yield return new WaitForSeconds(waitBeforeSpread);
         FindNodes();
     }

@@ -44,7 +44,7 @@ public class HealthSystem : MonoBehaviour
     IEnumerator Ticker(float hp)
     {
         //isTicking = true;
-        while (GameManager.Instance.gamePaused) yield return null;
+        while (GameManager.Instance.IsGamePaused) yield return null;
         if (health != 0)
         { 
             DamageFor(hp);
