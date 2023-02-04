@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PowerPlant : MonoBehaviour
+public class PowerPlant : Node
 {
     [SerializeField]
     private float primaryResource = 10f;
