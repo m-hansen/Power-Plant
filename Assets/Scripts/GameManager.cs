@@ -15,24 +15,17 @@ public class GameManager : Singleton<GameManager>
     [Header("Prefab Configuration")]
     [SerializeField] private PowerPlant powerPlant;
     [SerializeField] private CreepNode creep;
+    [SerializeField] private Stopwatch time;
 
     [Header("Gameplay")]
     [SerializeField]
     private int startingPrimaryResource = 25;
 
-    [Header("UI")]
-    [SerializeField]
-    private TMP_Text invokeText; // TODO make the timer know about the game manager and handle itself as an independent component
-
     [Header("Audio")]
     [SerializeField]
     [Tooltip("Primarily for development so we can easily handle the global audio stream from a convienent place.")]
-    private bool isMutedOnStart = false;
+    private bool isMutedOnLaunch = false;
     [SerializeField] private AudioClip backgroundMusic;
-
-    private float timeIncrement;
-    private float pauseIncrement;
-    private float invokeTime;
 
     // We may not end up using this for the jam
     public GameStateEnum GameState { get; private set; } = GameStateEnum.Gameplay; // Do not modify this variable directly - call ChangeGameState instead
@@ -41,7 +34,7 @@ public class GameManager : Singleton<GameManager>
 
     // Note nodes are not dynamic and will only be created/updated on launch
     // Nodes are currently SEttlements and the PowerPlant
-    public List<Node> Nodes { get; private set; } 
+    public Node[] Nodes { get; private set; } 
 
     public PowerPlant Plant { get => powerPlant; }
 
@@ -49,63 +42,46 @@ public class GameManager : Singleton<GameManager>
 
     public int PrimaryResource { get; private set; } // TODO: name me
 
-    private void Awake()
-    {
-        OnNewGame(); // we won't want to do this in awake oncee make a menu or start loading these resources in another (persistent) scene
-    }
+    public Stopwatch GameplayTimer { get => time; }
 
     private void Start()
     {
-        if (isMutedOnStart)
+        if (isMutedOnLaunch)
         {
             AudioManager.Instance.Mute(true);
         }
+
+        OnNewGame(); // we won't want to do this in awake oncee make a menu or start loading these resources in another (persistent) scene
     }
 
     private void OnNewGame()
     {
+        RegisterNodes();
+
         PrimaryResource = startingPrimaryResource;
-        RegisterAllNodes();
         AudioManager.Instance.PlayMusic(backgroundMusic);
 
-        StartTimer();
+        time.Clear(); // Likely already done because the scene would've been loaded and the timer is not handled by the engine, just being safe
     }
 
-    // TODO: We should put the timer bback into its own class and reference a handle to the timer from the game manager
-    private void StartTimer()
+    private void RegisterNodes()
     {
-        //Starts timer
-        InvokeRepeating("InvokeTimer", 0, timeIncrement);
-        IsGamePaused = false;
+        Nodes = FindObjectsOfType<Node>();
+
+        // Assign our own custom ids to a settlement instead of the engines instance id
+        int currentId = 0;
+        for (int i = 0; i < Nodes.Length; i++)
+        {
+            if (Nodes[i] is Settlement s)
+            {
+                s.Id = currentId;
+                s.gameObject.name = $"Settlement_{currentId}";
+                currentId++;
+            }
+        }
     }
 
-    public void PauseTimer()
-    {
-        pauseIncrement = timeIncrement;
-        timeIncrement = 0;
-        IsGamePaused = true;
-    }
-
-    public void UnpauseTimer()
-    {
-        timeIncrement = pauseIncrement;
-        IsGamePaused = false;
-    }
-
-    private void InvokeTimer()
-    {
-        int minutes = (int)(invokeTime / 60) % 60;
-        int seconds = (int)(invokeTime % 60);
-        invokeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        invokeTime += timeIncrement;
-    }
-
-    private void RegisterAllNodes()
-    {
-        Nodes = new List<Node>(FindObjectsOfType<Node>());
-    }
-
-    // TODO : We may need/want to make this public in the future. For now, we don't need to.
+    // TODO: We may need/want to make this public in the future. For now, we don't need to.
     private void ChangeGameState(GameStateEnum newState)
     {
         if (newState != GameState)

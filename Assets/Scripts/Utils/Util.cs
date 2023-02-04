@@ -7,7 +7,7 @@ public static class Util
 {
     public static Node FindClosestNode(Vector3 point)
     {
-        Debug.Assert(GameManager.Instance.Nodes.Count > 0);
+        Debug.Assert(GameManager.Instance.Nodes.Length > 0);
         float shortestDistance = float.MaxValue;
         Node closestNode = null;
         foreach (Node node in GameManager.Instance.Nodes)
@@ -26,8 +26,8 @@ public static class Util
     public static Node[] FindAllClosestNodes(Vector3 point)
     {
         Dictionary<Node, float> nodeDistances = new Dictionary<Node, float>();
-        List<Node> data = GameManager.Instance.Nodes;
-        foreach (Node n in data)
+        Node[] nodes = GameManager.Instance.Nodes;
+        foreach (Node n in nodes)
         {
             float distSq = (n.transform.position - point).sqrMagnitude;
             nodeDistances.Add(n, distSq);

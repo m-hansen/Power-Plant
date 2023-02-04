@@ -26,6 +26,7 @@ public class AudioManager : Singleton<AudioManager>
     }
 
     // Use to mute or unmute ALL audio channels handled by the audio manager
+    // This is not reliable to call in other script's awake functions
     public void Mute(bool shouldMute)
     {
         foreach (var source in allAudioSources)

@@ -11,6 +11,8 @@ public class Settlement : Node
     [SerializeField]
     private int resourcePerSecond;
 
+    public int Id { get; set; }
+
     private void Start()
     {
         Cost = (int)CalculateBaseCost(); // truncate our generated cost for simplicity

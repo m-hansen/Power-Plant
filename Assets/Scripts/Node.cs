@@ -16,7 +16,7 @@ public class Node : MonoBehaviour
 
     public HealthSystem HealthSystem { get; private set; }
 
-    void Start()
+    void Awake()
     {
         HealthSystem = gameObject.GetComponentInChildren<HealthSystem>();
     }

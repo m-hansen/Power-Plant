@@ -9,7 +9,7 @@ public class DebugPanel : MonoBehaviour
     void LateUpdate()
     {
         gameStateLabel.text = "Game State: " + GameManager.Instance.GameState.ToString();
-        nodeCountLabel.text = "Node Count: " + GameManager.Instance.Nodes.Count.ToString();
+        nodeCountLabel.text = "Node Count: " + GameManager.Instance.Nodes.Length.ToString();
     }
 
     private string EvaluateSelectedNodeValue(Node n) => n != null ? n.gameObject.name : "None";
