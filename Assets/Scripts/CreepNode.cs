@@ -17,6 +17,7 @@ public class CreepNode : Node
     [SerializeField]
     private float infectionRadius = 5f;
 
+    [SerializeField]
     private float creepTickDamage = 5f;
 
     private void Awake()

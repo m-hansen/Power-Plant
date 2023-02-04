@@ -8,6 +8,7 @@ public class Settlement : Node
     public int Cost { get; private set; }
     //MIGHT NOT NEED BOOL
     public bool hasResource { get; private set; }
+    public bool isInfected { get; private set; }
     [SerializeField]
     private int resourcePerSecond;
 
@@ -49,6 +50,7 @@ public class Settlement : Node
         // or does it mean that we start taking damage from evil, but we may be alive still and under the player's control?
         Debug.Log($"The creep is nearby. I'm starting to take damage! (Settlement Id: {Id})");
         HealthSystem.StartTakingDotDamage(hpPerTick);
+        isInfected= true;
     }
 
     private float CalculateBaseCost()
@@ -69,5 +71,10 @@ public class Settlement : Node
     public int GetResourcePerSecond()
     {
         return resourcePerSecond;
+    }
+
+    public int GetDepth()
+    {
+        return Depth;
     }
 }

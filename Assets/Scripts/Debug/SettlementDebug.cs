@@ -29,11 +29,15 @@ public class SettlementDebug : MonoBehaviour
 
             }
         }
-        if (settlementScript.IsConnectedToPowerPlant())
+        if (settlementScript.IsConnectedToPowerPlant()& !settlementScript.isInfected)
         {
             plusImg.enabled = true;
             minusImg.enabled = true;
             cost.enabled = false;
+            settlementScript.HealthSystem.prefabHealthBar.SetActive(true);
+        }
+        if(settlementScript.isInfected)
+        {
             settlementScript.HealthSystem.prefabHealthBar.SetActive(true);
         }
         else

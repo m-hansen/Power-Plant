@@ -43,6 +43,7 @@ public class HealthSystem : MonoBehaviour
     public void StartHotHealing(float HealPerTick)
     {
         tickCoroutine = StartCoroutine(HealTicker(HealPerTick));
+        Debug.Log(HealPerTick);
     }
 
     public void StartTakingDotDamage(float DamagePerTick)

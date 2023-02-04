@@ -112,7 +112,6 @@ public class VineCreator : MonoBehaviour
         // Pay for the vine
         var settlementScript = destination.GetComponent<Settlement>();
         GameManager.Instance.Player.ExpendResource(settlementScript.Cost);
-        destination.HealthSystem.StartHotHealing(1*-destination.GetDepth());
 
         //Check if destination has resource
         //If it does add resource per second
@@ -130,5 +129,6 @@ public class VineCreator : MonoBehaviour
         // The graph is bidirectional
         n1.AddAdjacentNode(n2);
         n2.AddAdjacentNode(n1);
+        n2.HealthSystem.StartHotHealing(-n1.Depth +5);
     }
 }
