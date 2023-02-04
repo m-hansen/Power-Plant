@@ -876,6 +876,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1993524097}
   sfxSource: {fileID: 23687543}
+--- !u!114 &633954499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8580630600251448418, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+  m_PrefabInstance: {fileID: 949760240}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &644520723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1150,7 +1161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b82d780c1527409c49a50202f5965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerLabel: {fileID: 128647118}
 --- !u!1001 &928875799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1329,6 +1339,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settlement
       objectReference: {fileID: 0}
+    - target: {fileID: 7763959516303270670, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: id
+      value: 
+      objectReference: {fileID: 633954499}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
