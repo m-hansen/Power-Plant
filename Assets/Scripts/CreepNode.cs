@@ -33,12 +33,14 @@ public class CreepNode : MonoBehaviour
     }
     private void FindNodes()
     {
+
         int found = 0;
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 6f);
         Array.Sort(hitColliders, (a, b) => (int)Mathf.Sign(Vector3.Distance(transform.position, b.transform.position) - Vector3.Distance(transform.position, a.transform.position)));
         for (int i = hitColliders.Length; i-- > 0;)
         {
-            obj = hitColliders[i].GetComponentInChildren<Node>();
+
+            obj = hitColliders[i].GetComponentInChildren<Settlement>();
             if (found >= infectPerNode)
             {
                 return;
@@ -49,5 +51,7 @@ public class CreepNode : MonoBehaviour
                 found++;
             }
         }
+       
+
     }
 }
