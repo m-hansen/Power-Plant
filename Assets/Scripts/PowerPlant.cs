@@ -10,6 +10,11 @@ public class PowerPlant : Node
 
     public float PrimaryResource { get; set; }
 
+    private void Awake()
+    {
+        HealthSystem = gameObject.GetComponentInChildren<HealthSystem>(); // TODO: 8305
+    }
+
     //Make coruntine or something
     private void Start()
     {

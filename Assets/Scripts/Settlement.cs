@@ -18,6 +18,8 @@ public class Settlement : Node
 
     private void Awake()
     {
+        HealthSystem = gameObject.GetComponentInChildren<HealthSystem>(); // TODO: 8305
+
         edgeColor = vineColor;
     }
 
@@ -38,6 +40,15 @@ public class Settlement : Node
             // Temp for debugging / testing
             GetComponent<SpriteRenderer>().color = Color.green;
         }
+    }
+
+    public void StartDamageTick(float hpPerTick)
+    {
+        // Question:
+        // Does infect imply death?
+        // or does it mean that we start taking damage from evil, but we may be alive still and under the player's control?
+        Debug.Log($"The creep is nearby. I'm starting to take damage! (Settlement Id: {Id})");
+        HealthSystem.StartTakingDotDamage(hpPerTick);
     }
 
     private float CalculateBaseCost()

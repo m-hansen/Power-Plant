@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(HealthSystem))]
 public class Node : MonoBehaviour
 {
     private const float LineWidth = 0.1f;
@@ -14,11 +15,12 @@ public class Node : MonoBehaviour
 
     public int EdgeCount { get; private set; }
 
-    public HealthSystem HealthSystem { get; private set; }
+    public HealthSystem HealthSystem { get; protected set; } // TODO: 8305
 
     void Awake()
     {
-        HealthSystem = gameObject.GetComponentInChildren<HealthSystem>();
+        // TODO: 8305
+        //HealthSystem = gameObject.GetComponentInChildren<HealthSystem>();
     }
 
     public void AddAdjacentNode(Node n)

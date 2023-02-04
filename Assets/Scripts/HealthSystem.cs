@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class HealthSystem : MonoBehaviour
 {
     public GameObject prefabHealthBar;
@@ -13,8 +12,10 @@ public class HealthSystem : MonoBehaviour
     private float maxHealth = 100f;
     [SerializeField]
     private float tickRate = 1f;
-    public bool IsInfected { get; private set; }
 
+    private Coroutine tickCoroutine;
+
+    public bool IsDead { get; private set; }
 
     void Start()
     {
@@ -30,59 +31,47 @@ public class HealthSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Heal(Random.Range(1, 20));
-            UpdateHealthBar();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            Damage(Random.Range(1, 20));
-            UpdateHealthBar();
+            TakeDamage(Random.Range(1, 20));
         }
         //
         //
     }
-    IEnumerator Ticker(float hp)
-    {
-        //isTicking = true;
-        while (GameManager.Instance.IsGamePaused) yield return null;
-        if (health != 0)
-        { 
-            DamageFor(hp);
-        }
-        yield return new WaitForSeconds(tickRate);
-        if (!IsInfected) 
-        {
-            TickDamage(hp);
-        }
-    }
 
-    private void UpdateHealthBar()
+    public void StartTakingDotDamage(float hpPerTick)
     {
-        prefabHealthBar.transform.Find("Bar").localScale = new Vector3(GetHealthPercent(), 1);
-        if (!IsInfected && health == 0)
-        {
-            NodeDeath();
-        }
-    }
-
-    public void TickDamage(float hp)
-    {
-        StartCoroutine(Ticker(hp));
+        tickCoroutine = StartCoroutine(Ticker(hpPerTick));
     }
 
     //Can be called for one time damage/heal
-    public void HealFor(float hp)
+    public void Heal(float amount)
     {
-        Heal(hp);
-        UpdateHealthBar();
-    }
-    public void DamageFor(float hp)
-    {
-        
-        Damage(hp);
+        if (health > 0)
+        {
+            health += amount;
+        }
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
         UpdateHealthBar();
     }
 
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0)
+        {
+            health = 0;
+            StopCoroutine(tickCoroutine);
+        }
+
+        UpdateHealthBar();
+    }
 
     public float GetHealth()
     {
@@ -92,36 +81,34 @@ public class HealthSystem : MonoBehaviour
     public float GetHealthPercent()
     {
         return health / maxHealth;
-
     }
 
-    //Add effects?
-    private void Damage(float damageAmount)
+    private IEnumerator Ticker(float hpPerTick)
     {
-        health -= damageAmount;
-        if (health <= 0)
+        while (true)
         {
-            health = 0;
-            StopAllCoroutines();
-            
+            yield return new WaitForSeconds(tickRate);
+
+            while (GameManager.Instance.IsGamePaused) yield return null;
+            if (health > 0)
+            {
+                TakeDamage(hpPerTick);
+            }
         }
     }
-    //Should Probably add effects of some sort
-    private void Heal(float healAmount)
+
+    private void UpdateHealthBar()
     {
-        if (health > 0)
+        prefabHealthBar.transform.Find("Bar").localScale = new Vector3(GetHealthPercent(), 1);
+        if (!IsDead && health == 0)
         {
-            health += healAmount;
-        }
-        if (health > maxHealth)
-        {
-            health = maxHealth;
+            NodeDeath();
         }
     }
 
     private void NodeDeath()
     {
-        IsInfected = true;
+        IsDead = true;
         Vector3 pos = transform.position;
         CreepNode creep =  gameObject.AddComponent<CreepNode>();
     }
