@@ -19,6 +19,7 @@ public class HealthSystem : MonoBehaviour
     void Start()
     {
         prefabHealthBar = Instantiate(prefabHealthBar, gameObject.transform.position + healthBarOffset, Quaternion.identity);
+        prefabHealthBar.transform.parent = transform;
         UpdateHealthBar();
     }
 
