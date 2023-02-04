@@ -57,7 +57,7 @@ public class GameManager : Singleton<GameManager>
         Player.PrimaryResource = startingResources;
         AudioManager.Instance.PlayMusic(backgroundMusic);
 
-        time.Clear(); // Likely already done because the scene would've been loaded and the timer is not handled by the engine, just being safe
+        time?.Clear(); // Likely already done because the scene would've been loaded and the timer is not handled by the engine, just being safe
     }
 
     private void RegisterNodes()
