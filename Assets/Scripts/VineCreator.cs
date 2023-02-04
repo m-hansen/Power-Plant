@@ -112,6 +112,7 @@ public class VineCreator : MonoBehaviour
         // Pay for the vine
         var settlementScript = destination.GetComponent<Settlement>();
         GameManager.Instance.Player.ExpendResource(settlementScript.Cost);
+        destination.HealthSystem.StartHotHealing(1*-destination.GetDepth());
 
         //Check if destination has resource
         //If it does add resource per second
