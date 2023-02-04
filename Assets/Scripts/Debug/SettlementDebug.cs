@@ -11,7 +11,7 @@ public class SettlementDebug : MonoBehaviour
 
     void Update()
     {
-        id.text = settlementScript.Id.ToString();
+        id.text = "ID: " + settlementScript.Id.ToString();
         cost.text = settlementScript.Cost.ToString();
 
         if (settlementScript.hasResource)
