@@ -1,9 +1,13 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
     public GameObject prefabHealthBar;
+    public Button plus;
+    public Button minus;
     [SerializeField]
     private Vector3 healthBarOffset = new Vector3(0, 0.85f);
     [SerializeField]
@@ -12,20 +16,31 @@ public class HealthSystem : MonoBehaviour
     private float maxHealth = 100f;
     [SerializeField]
     private float tickRate = 1f;
+    public int isTickingDmg { get; private set; }
+    public int isTickingHeal { get; private set; }
 
     private Coroutine tickCoroutine;
+    private ColorBlock colorReset;
+    private ColorBlock colorSet;
 
     public bool IsDead { get; private set; }
 
     void Start()
     {
+        Button plusbtn =plus.GetComponent<Button>();
+        Button minusbtn = minus.GetComponent<Button>();
         prefabHealthBar = Instantiate(prefabHealthBar, gameObject.transform.position + healthBarOffset, Quaternion.identity);
         prefabHealthBar.transform.parent = transform;
+        plusbtn.onClick.AddListener(OnClickPlus);
+        minusbtn.onClick.AddListener(OnClickMinus);
         UpdateHealthBar();
+        colorSet = minus.colors;
+        colorReset = minus.colors;
     }
 
     void Update()
     {
+
         //TODO
         //TEMP FOR DEBUG, REMOVE LATER
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -40,20 +55,67 @@ public class HealthSystem : MonoBehaviour
         //
         //
     }
+
+    private void OnClickPlus()
+    {
+        /*        if (heldHPS < 1)
+                {
+                    heldHPS -= heldHPS;
+                    isTickingHeal++;
+                }*/
+        if (isTickingHeal < 0)
+        {
+            isTickingDmg--;
+        }
+        if (isTickingHeal >= 0)
+        {
+            isTickingHeal++;
+        }
+        if (isTickingDmg < 0)
+        {
+            isTickingHeal++;
+        }
+
+    }
+    private void OnClickMinus()
+    {
+        Button b = minus.GetComponent<Button>();
+        if (isTickingHeal == 0)
+        {
+            //minus.GetComponent<Button>()
+            b.enabled= false;
+        }
+
+        if (isTickingHeal > 0) 
+        {
+            isTickingHeal--;
+        }
+        if (isTickingDmg < 0)
+        {
+            isTickingDmg++;
+
+            b.enabled = true;
+        }
+    }
+
+
+
     public void StartHotHealing(float HealPerTick)
     {
         tickCoroutine = StartCoroutine(HealTicker(HealPerTick));
-        Debug.Log(HealPerTick);
+        isTickingHeal = (int)HealPerTick;
     }
 
     public void StartTakingDotDamage(float DamagePerTick)
     {
         tickCoroutine = StartCoroutine(Ticker(DamagePerTick));
+        isTickingDmg = (int)DamagePerTick;
     }
 
     //Can be called for one time damage/heal
     public void Heal(float amount)
     {
+        Mathf.Clamp(amount, 0f, 99f);
         if (health > 0)
         {
             health += amount;
@@ -100,6 +162,7 @@ public class HealthSystem : MonoBehaviour
                 TakeDamage(DamagePerTick);
             }
         }
+
     }
     private IEnumerator HealTicker(float HealPerTick)
     {
