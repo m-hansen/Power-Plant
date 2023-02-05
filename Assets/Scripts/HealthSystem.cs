@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.UI.Image;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -99,7 +100,8 @@ private void OnClickMinus()
 
     public void StartHotHealing(float HealPerTick)
     {
-        CombineTicks(HealPerTick,0f);
+        CombineTicks(HealPerTick, 0f);
+
     }
     public void CombineTicks(float Heal, float Dmg)
     {

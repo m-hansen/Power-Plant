@@ -12,13 +12,13 @@ public class CreepNode : Node
     private Color vineColor = Color.magenta;
 
     [SerializeField]
-    private float waitBeforeSpread = 0.5f;
+    private float waitBeforeSpread = 1f;
 
     [SerializeField]
-    private float infectionRadius = 8f;
+    private float infectionRadius = 10f;
 
     [SerializeField]
-    private float creepTickDamage = -6f;
+    private float creepTickDamage = 5f;
 
     private void Awake()
     {
@@ -58,7 +58,7 @@ public class CreepNode : Node
         // FIXME: we probably should copy less arrays around
         int found = 0;
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, infectionRadius);
-        Array.Sort(hitColliders, (a, b) => (int)Mathf.Sign(Vector3.Distance(transform.position, b.transform.position) - Vector3.Distance(transform.position, a.transform.position)));
+        //Array.Sort(hitColliders, (a, b) => (int)Mathf.Sign(Vector3.Distance(transform.position, b.transform.position) - Vector3.Distance(transform.position, a.transform.position)));
 
         List<Settlement> settlementsToReturn = new List<Settlement>();
 
@@ -69,7 +69,7 @@ public class CreepNode : Node
                 break;
             }
             var settlement = hitColliders[i].GetComponentInChildren<Settlement>();
-            if (settlement != null)
+            if (settlement != settlement.isInfected)
             {
                 settlementsToReturn.Add(settlement);
                 found++;

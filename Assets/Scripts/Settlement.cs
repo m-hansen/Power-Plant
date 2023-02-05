@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 // Assumptions: No Settlements can overlap each other
 public class Settlement : Node
@@ -62,6 +63,11 @@ public class Settlement : Node
 
     public bool IsConnectedToPowerPlant()
     {
+        var CreepOrigin = gameObject.GetComponent<CreepNode>();
+        if (CreepOrigin)
+        {
+            return false;
+        }
         // HACK - lets assume any node with ANY adjacent nodes MUST be connected to a power plant... for now. This assumption should be true for this game anyway but-
         // it wont be true if we're checking in teh creep graph OR if we have two nodes connected somehow.
         // This will be cleaned up tomorrow on 2/4/23

@@ -5,7 +5,7 @@ public class PowerPlant : Node
     [SerializeField]
     private float resourcesPerSecond = 1f;
     public int currentHeldHPS =0;
-    public int MaxHeldHPS = 5;
+    public int MaxHeldHPS = 15;
     private int TimeIncrement=1;
     public float resourceLastSpent { get; private set; }
 

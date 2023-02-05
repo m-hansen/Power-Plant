@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 public class VineCreator : MonoBehaviour
 {
@@ -89,6 +88,11 @@ public class VineCreator : MonoBehaviour
     private bool IsValidVineConnection(Node origin, Node destination)
     {
         var settlement = destination.GetComponent<Settlement>();
+        var CreepOrigin = origin.GetComponent<CreepNode>();
+        if (CreepOrigin)
+        {
+            return true;
+        }
 
         // The destination node must be a settlement
         if (settlement == null)
@@ -147,7 +151,8 @@ public class VineCreator : MonoBehaviour
         // The graph is bidirectional
         n1.AddAdjacentNode(n2);
         n2.AddAdjacentNode(n1);
-        StupidVineThingINeed(n1, n2);
+        //n2.HealthSystem.StartHotHealing(Mathf.Clamp(5 - n1.Depth, -99f, 99f));
+        //StupidVineThingINeed(n1, n2);
 
     }
 }

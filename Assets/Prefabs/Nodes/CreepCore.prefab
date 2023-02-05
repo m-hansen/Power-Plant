@@ -669,4 +669,4 @@ MonoBehaviour:
   vineColor: {r: 1, g: 0, b: 1, a: 1}
   waitBeforeSpread: 1
   infectionRadius: 10
-  creepTickDamage: 25
+  creepTickDamage: 5

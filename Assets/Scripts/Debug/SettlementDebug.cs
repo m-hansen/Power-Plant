@@ -8,7 +8,6 @@ public class SettlementDebug : MonoBehaviour
     public TMPro.TMP_Text resource;
     public TMPro.TMP_Text id;
     public TMPro.TMP_Text depth;
-   // public TMPro.TMP_Text hps;
     public TMPro.TMP_Text tick;
 
     public Image resourcImg;
@@ -43,10 +42,7 @@ public class SettlementDebug : MonoBehaviour
             minusImg.enabled = true;
             cost.enabled = false;
             settlementScript.HealthSystem.prefabHealthBar.SetActive(true);
-            //tick.enabled = true;
-            //hps.enabled = true;
-            //tick.text = $"{settlementScript.HealthSystem.isCurrentlyTickingfor}";
-            //hps.text = $"+{settlementScript.HealthSystem.isTickingHeal}";
+
             if (settlementScript.hasResource)
             {
                 resourcImg.enabled = true;
@@ -61,11 +57,8 @@ public class SettlementDebug : MonoBehaviour
         if(settlementScript.isInfected)
         {
             settlementScript.HealthSystem.prefabHealthBar.SetActive(true);
-            //tick.enabled = true;
-            //hps.enabled = true;
             cost.enabled = false;
-            //tick.text = $"{settlementScript.HealthSystem.isTickingDmg}";
-            //hps.text = $"+{settlementScript.HealthSystem.isTickingHeal}";
+
         }
         else
         {
