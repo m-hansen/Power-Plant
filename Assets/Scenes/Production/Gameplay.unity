@@ -1194,10 +1194,11 @@ Transform:
   m_Children:
   - {fileID: 1055993800}
   - {fileID: 909793666}
+  - {fileID: 1564802162}
+  - {fileID: 2092979556}
   - {fileID: 2144438647}
   - {fileID: 1664116125}
   - {fileID: 126172945}
-  - {fileID: 2092979556}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2078,7 +2079,7 @@ GameObject:
   - component: {fileID: 1564802162}
   - component: {fileID: 1564802163}
   m_Layer: 0
-  m_Name: InputHandler
+  m_Name: VineCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2096,7 +2097,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1832813749}
+  m_Father: {fileID: 905534150}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1564802163
@@ -2112,6 +2113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempLineRenderer: {fileID: 2092979555}
+  vineElasticity: 10
   nodeSnapDistance: 1
 --- !u!4 &1577768216 stripped
 Transform:
@@ -2580,7 +2582,6 @@ Transform:
   - {fileID: 375430751}
   - {fileID: 123909167}
   - {fileID: 491093869}
-  - {fileID: 1564802162}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2906,7 +2907,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f6a0efd20ee721e47bb3df2117c1526e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2937,7 +2938,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0912437
+        value: 0.46734232
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2980,7 +2981,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
