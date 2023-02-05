@@ -17,8 +17,9 @@ public class HealthSystem : MonoBehaviour
     private float maxHealth = 100f;
     [SerializeField]
     private float tickRate = 1f;
-    [SerializeField]
     private Coroutine tickerCoroutine;
+    private float Dmg;
+    private float Heal;
     private ColorBlock colorSet;
     private bool tickerRunning = false;
     public float Tick { get; private set; }
@@ -68,6 +69,7 @@ public class HealthSystem : MonoBehaviour
     {
         minus.interactable = true;
         TickAmountIncrementBy(1);
+        GetComponentInChildren<Settlement>().AddToResource(1);
         GameManager.Instance.Player.RemoveHeldHPS();
         Debug.Log(currentheld);
     }
@@ -82,6 +84,7 @@ private void OnClickMinus()
     {
         plus.interactable = true;
         TickAmountIncrementBy(-1);
+        GetComponentInChildren<Settlement>().AddToResource(-1);
         GameManager.Instance.Player.AddHeldHPS();
         Debug.Log(currentheld);
     }
@@ -95,15 +98,16 @@ private void OnClickMinus()
 
     public void StartTakingDotDamage(float DmgPerTick)
     {
-        CombineTicks(0f,DmgPerTick);
+        Dmg = DmgPerTick;
+        CombineTicks();
     }
 
     public void StartHotHealing(float HealPerTick)
     {
-        CombineTicks(HealPerTick, 0f);
-
+        Heal = HealPerTick;
+        CombineTicks();
     }
-    public void CombineTicks(float Heal, float Dmg)
+    public void CombineTicks()
     {
         if (!tickerRunning)
         {
