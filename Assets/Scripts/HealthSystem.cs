@@ -36,6 +36,14 @@ public class HealthSystem : MonoBehaviour
         UpdateHealthBar();
         colorSet = minus.colors;
         colorReset = minus.colors;
+        colorSet.disabledColor = Color.grey;
+
+        //TEMP
+        if (isTickingDmg ==0)
+        {
+            minus.interactable = false;
+        }
+        minus.interactable = false;
     }
 
     void Update()
@@ -79,11 +87,10 @@ public class HealthSystem : MonoBehaviour
     }
     private void OnClickMinus()
     {
-        Button b = minus.GetComponent<Button>();
+        //Button b = minus.GetComponent<Button>();
         if (isTickingHeal == 0)
         {
-            //minus.GetComponent<Button>()
-            b.enabled= false;
+            minus.interactable = false;
         }
 
         if (isTickingHeal > 0) 
@@ -94,7 +101,7 @@ public class HealthSystem : MonoBehaviour
         {
             isTickingDmg++;
 
-            b.enabled = true;
+            minus.interactable = true;
         }
     }
 
