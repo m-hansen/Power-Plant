@@ -23,8 +23,8 @@ public class CreepNode : Node
     private void Awake()
     {
         HealthSystem = gameObject.GetComponentInChildren<HealthSystem>(); // TODO: 8305
-
         edgeColor = vineColor;
+        VineMaterialName = "CreepVine";
     }
 
     private void Start()

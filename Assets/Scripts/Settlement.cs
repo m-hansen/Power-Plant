@@ -20,8 +20,8 @@ public class Settlement : Node
     private void Awake()
     {
         HealthSystem = gameObject.GetComponentInChildren<HealthSystem>(); // TODO: 8305
-
         edgeColor = vineColor;
+        VineMaterialName = "Vine";
     }
 
     private void Start()

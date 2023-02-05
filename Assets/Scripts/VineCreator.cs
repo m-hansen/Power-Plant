@@ -6,6 +6,9 @@ public class VineCreator : MonoBehaviour
     [SerializeField]
     private LineRenderer tempLineRenderer;
 
+    [SerializeField, Range(1, 100)]
+    private int vineElasticity = 10;
+
     [SerializeField, Tooltip("This is used as a buffer to allow misclicks when dragging vines.")]
     private float nodeSnapDistance;
 
@@ -20,6 +23,9 @@ public class VineCreator : MonoBehaviour
         {
             // Draw a temporary line to the cursor position
             tempLineRenderer.SetPosition(tempLineRenderer.positionCount - 1, Util.GetMousePositionInWorldSpace());
+
+            float distance = (Util.GetMousePositionInWorldSpace() - originNode.transform.position).magnitude;
+            tempLineRenderer.material.mainTextureScale = new Vector2(distance / vineElasticity, tempLineRenderer.material.mainTextureScale.y);
         }
     }
 
