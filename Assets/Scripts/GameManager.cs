@@ -57,6 +57,10 @@ public class GameManager : Singleton<GameManager>
         Player.PrimaryResource = startingResources;
         AudioManager.Instance.PlayMusic(backgroundMusic);
 
+        // Start the camera on top of the player
+        Vector3 playerPos = Player.transform.position;
+        Camera.main.transform.position = new Vector3(playerPos.x, playerPos.y, Camera.main.transform.position.z);
+
         time?.Clear(); // Likely already done because the scene would've been loaded and the timer is not handled by the engine, just being safe
     }
 

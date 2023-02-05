@@ -2334,11 +2334,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3696881332820229109, guid: 509d16d6d493ad14f998e6a183a3522b, type: 3}
       propertyPath: m_Name
-      value: --
+      value: ZP
       objectReference: {fileID: 0}
     - target: {fileID: 3962753311772892751, guid: 509d16d6d493ad14f998e6a183a3522b, type: 3}
       propertyPath: m_text
-      value: Music
+      value: Kalimba Enthusiast
       objectReference: {fileID: 0}
     - target: {fileID: 4920373010856497254, guid: 509d16d6d493ad14f998e6a183a3522b, type: 3}
       propertyPath: m_Pivot.x
@@ -2426,7 +2426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7626595327039596342, guid: 509d16d6d493ad14f998e6a183a3522b, type: 3}
       propertyPath: m_text
-      value: FIRST LAST
+      value: Zachary Patrick
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
