@@ -9504,6 +9504,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 128647118}
     - target: {fileID: 8899966754031356842, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8899966754031356842, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
       propertyPath: debugPanel
       value: 
       objectReference: {fileID: 1005232979}
@@ -9581,11 +9585,11 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: ff43379659c5951408f0d728a1a8e56f, type: 3}
     - target: {fileID: 8899966754031356844, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
       propertyPath: isMutedOnLaunch
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8899966754031356844, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
       propertyPath: startingResources
-      value: 999
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 8899966754031356844, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
       propertyPath: firstInfectionStartTime
