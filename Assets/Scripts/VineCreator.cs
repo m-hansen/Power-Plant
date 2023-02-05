@@ -129,6 +129,6 @@ public class VineCreator : MonoBehaviour
         // The graph is bidirectional
         n1.AddAdjacentNode(n2);
         n2.AddAdjacentNode(n1);
-        n2.HealthSystem.StartHotHealing(-n1.Depth +5);
+        n2.HealthSystem.StartHotHealing(Mathf.Clamp(-n1.Depth + 5, 0f, 99f));
     }
 }
