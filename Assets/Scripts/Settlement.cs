@@ -72,9 +72,4 @@ public class Settlement : Node
     {
         return resourcePerSecond;
     }
-
-    public int GetDepth()
-    {
-        return Depth;
-    }
 }

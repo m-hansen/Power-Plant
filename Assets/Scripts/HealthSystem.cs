@@ -16,18 +16,17 @@ public class HealthSystem : MonoBehaviour
     private float maxHealth = 100f;
     [SerializeField]
     private float tickRate = 1f;
-    public int isTickingDmg { get; private set; }
-    public int isTickingHeal { get; private set; }
-
-    private Coroutine tickCoroutine;
-    private ColorBlock colorReset;
+    [SerializeField]
+    private Coroutine tickerCoroutine;
     private ColorBlock colorSet;
+    private bool tickerRunning = false;
+    public float Tick { get; private set; }
 
     public bool IsDead { get; private set; }
 
     void Start()
     {
-        Button plusbtn =plus.GetComponent<Button>();
+        Button plusbtn = plus.GetComponent<Button>();
         Button minusbtn = minus.GetComponent<Button>();
         prefabHealthBar = Instantiate(prefabHealthBar, gameObject.transform.position + healthBarOffset, Quaternion.identity);
         prefabHealthBar.transform.parent = transform;
@@ -35,30 +34,25 @@ public class HealthSystem : MonoBehaviour
         minusbtn.onClick.AddListener(OnClickMinus);
         UpdateHealthBar();
         colorSet = minus.colors;
-        colorReset = minus.colors;
         colorSet.disabledColor = Color.grey;
-
-        //TEMP
-        if (isTickingDmg ==0)
-        {
-            minus.interactable = false;
-        }
-        minus.interactable = false;
     }
 
     void Update()
     {
-
+        int maxheld = GameManager.Instance.Player.MaxHeldHPS;
+        int currentheld = GameManager.Instance.Player.currentHeldHPS;
         //TODO
         //TEMP FOR DEBUG, REMOVE LATER
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            Heal(Random.Range(1, 20));
+            Debug.Log(currentheld);
+            //GameManager.Instance.Player.AddHeldHPS();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            TakeDamage(Random.Range(1, 20));
+            Debug.Log(maxheld);
+            //GameManager.Instance.Player.RemoveHeldHPS();
         }
         //
         //
@@ -66,125 +60,81 @@ public class HealthSystem : MonoBehaviour
 
     private void OnClickPlus()
     {
-        /*        if (heldHPS < 1)
-                {
-                    heldHPS -= heldHPS;
-                    isTickingHeal++;
-                }*/
-        if (isTickingHeal < 0)
-        {
-            isTickingDmg--;
-        }
-        if (isTickingHeal >= 0)
-        {
-            isTickingHeal++;
-        }
-        if (isTickingDmg < 0)
-        {
-            isTickingHeal++;
-        }
+    int maxheld = GameManager.Instance.Player.MaxHeldHPS;
+    int currentheld = GameManager.Instance.Player.currentHeldHPS;
 
-    }
-    private void OnClickMinus()
+    if (currentheld !=0)
     {
-        //Button b = minus.GetComponent<Button>();
-        if (isTickingHeal == 0)
-        {
-            minus.interactable = false;
-        }
+        minus.interactable = true;
+        TickAmountIncrementBy(1);
+        GameManager.Instance.Player.RemoveHeldHPS();
+        Debug.Log(currentheld);
+    }
+    else plus.interactable = false;
+}
+private void OnClickMinus()
+{
+    int maxheld = GameManager.Instance.Player.MaxHeldHPS;
+    int currentheld = GameManager.Instance.Player.currentHeldHPS;
+  
+    if (Tick > 0 && currentheld < maxheld)
+    {
+        plus.interactable = true;
+        TickAmountIncrementBy(-1);
+        GameManager.Instance.Player.AddHeldHPS();
+        Debug.Log(currentheld);
+    }
+    else minus.interactable = false;
+}
 
-        if (isTickingHeal > 0) 
-        {
-            isTickingHeal--;
-        }
-        if (isTickingDmg < 0)
-        {
-            isTickingDmg++;
-
-            minus.interactable = true;
-        }
+    public void TickAmountIncrementBy(int damageorheal)
+    {
+        Tick = Tick +damageorheal;
     }
 
-
+    public void StartTakingDotDamage(float DmgPerTick)
+    {
+        CombineTicks(0f,DmgPerTick);
+    }
 
     public void StartHotHealing(float HealPerTick)
     {
-        tickCoroutine = StartCoroutine(HealTicker(HealPerTick));
-        isTickingHeal = (int)HealPerTick;
+        CombineTicks(HealPerTick,0f);
     }
-
-    public void StartTakingDotDamage(float DamagePerTick)
+    public void CombineTicks(float Heal, float Dmg)
     {
-        tickCoroutine = StartCoroutine(Ticker(DamagePerTick));
-        isTickingDmg = (int)DamagePerTick;
-    }
-
-    //Can be called for one time damage/heal
-    public void Heal(float amount)
-    {
-        Mathf.Clamp(amount, 0f, 99f);
-        if (health > 0)
+        if (!tickerRunning)
         {
-            health += amount;
-        }
-        if (health > maxHealth)
-        {
-            health = maxHealth;
+            tickerCoroutine = StartCoroutine(TickerCoroutine());
         }
 
+       Tick = Heal - Dmg;
+    }
+    
+    private void ApplyHealth()
+    {
+        health = health + Tick;
+        health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthBar();
-    }
-
-    public void TakeDamage(float amount)
-    {
-        health -= amount;
-        if (health <= 0)
-        {
-            health = 0;
-            StopCoroutine(tickCoroutine);
-        }
-
-        UpdateHealthBar();
-    }
-
-    public float GetHealth()
-    {
-        return health;
     }
 
     public float GetHealthPercent()
     {
         return health / maxHealth;
     }
-
-    private IEnumerator Ticker(float DamagePerTick)
+    
+    private IEnumerator TickerCoroutine()
     {
+        tickerRunning=true;
         while (true)
         {
+            ApplyHealth();
             yield return new WaitForSeconds(tickRate);
-
             while (GameManager.Instance.IsGamePaused) yield return null;
-            if (health > 0)
-            {
-                TakeDamage(DamagePerTick);
-            }
-        }
-
-    }
-    private IEnumerator HealTicker(float HealPerTick)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(tickRate);
-
-            while (GameManager.Instance.IsGamePaused) yield return null;
-            if (health > 0)
-            {
-                Heal(HealPerTick);
-            }
+            plus.interactable = true;
+            minus.interactable = true;
         }
     }
-
 
     private void UpdateHealthBar()
     {
@@ -198,7 +148,7 @@ public class HealthSystem : MonoBehaviour
     private void NodeDeath()
     {
         IsDead = true;
-        Vector3 pos = transform.position;
         CreepNode creep =  gameObject.AddComponent<CreepNode>();
+        StopCoroutine(tickerCoroutine);
     }
 }

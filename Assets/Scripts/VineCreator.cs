@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class VineCreator : MonoBehaviour
 {
@@ -32,6 +33,15 @@ public class VineCreator : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && isVineCreationInProgress)
         {
             ExitVineCreationMode();
+        }
+    }
+    private void StupidVineThingINeed(Node originNode,Node destinationNode)
+    {
+        var settlementScript = destinationNode.GetComponent<Settlement>();
+        if (!settlementScript.isInfected)
+        {
+            //can clamp node depth hp/s values here
+            destinationNode.HealthSystem.StartHotHealing(Mathf.Clamp(5 - originNode.Depth, -99f, 99f));
         }
     }
 
@@ -104,6 +114,8 @@ public class VineCreator : MonoBehaviour
         }
 
         Debug.Log($"Vine connected: [{origin.name}] -> [{destination.name}]");
+
+
         return true;
     }
 
@@ -129,6 +141,7 @@ public class VineCreator : MonoBehaviour
         // The graph is bidirectional
         n1.AddAdjacentNode(n2);
         n2.AddAdjacentNode(n1);
-        n2.HealthSystem.StartHotHealing(Mathf.Clamp(-n1.Depth + 5, 0f, 99f));
+        StupidVineThingINeed(n1, n2);
+
     }
 }

@@ -15,10 +15,10 @@ public class CreepNode : Node
     private float waitBeforeSpread = 0.5f;
 
     [SerializeField]
-    private float infectionRadius = 5f;
+    private float infectionRadius = 8f;
 
     [SerializeField]
-    private float creepTickDamage = 5f;
+    private float creepTickDamage = -6f;
 
     private void Awake()
     {

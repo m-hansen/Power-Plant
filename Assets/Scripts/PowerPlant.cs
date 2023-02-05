@@ -4,8 +4,9 @@ public class PowerPlant : Node
 {
     [SerializeField]
     private float resourcesPerSecond = 1f;
-
-    private int timeIncrement=1;
+    public int currentHeldHPS =0;
+    public int MaxHeldHPS = 5;
+    private int TimeIncrement=1;
     public float resourceLastSpent { get; private set; }
 
     public float PrimaryResource { get; set; }
@@ -18,7 +19,7 @@ public class PowerPlant : Node
     //Make coruntine or something
     private void Start()
     {
-        InvokeRepeating("InvokeResourcePerSecond", 0, timeIncrement);
+        InvokeRepeating("InvokeResourcePerSecond", 0, TimeIncrement);
 
         PrimaryResource += resourcesPerSecond * Time.deltaTime;
     }
@@ -26,6 +27,18 @@ public class PowerPlant : Node
     public void AddResourcePerSecond(float n)
     {
         resourcesPerSecond+= n;
+    }
+
+    public void AddHeldHPS()
+    {
+        currentHeldHPS++;
+        currentHeldHPS = Mathf.Clamp(currentHeldHPS, 0, MaxHeldHPS);
+    }
+
+    public void RemoveHeldHPS()
+    {
+        currentHeldHPS--;
+        currentHeldHPS = Mathf.Clamp(currentHeldHPS, 0, MaxHeldHPS);
     }
 
     void InvokeResourcePerSecond()
