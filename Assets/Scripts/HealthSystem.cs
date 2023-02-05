@@ -22,6 +22,11 @@ public class HealthSystem : MonoBehaviour
     private float Heal;
     private ColorBlock colorSet;
     private bool tickerRunning = false;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip plusClickSound;
+    [SerializeField] private AudioClip minusClickSound;
+
     public float Tick { get; private set; }
 
     public bool IsDead { get; private set; }
@@ -62,34 +67,45 @@ public class HealthSystem : MonoBehaviour
 
     private void OnClickPlus()
     {
-    int maxheld = GameManager.Instance.Player.MaxHeldHPS;
-    int currentheld = GameManager.Instance.Player.currentHeldHPS;
+        int maxheld = GameManager.Instance.Player.MaxHeldHPS;
+        int currentheld = GameManager.Instance.Player.currentHeldHPS;
 
-    if (currentheld !=0)
-    {
-        minus.interactable = true;
-        TickAmountIncrementBy(1);
-        GetComponentInChildren<Settlement>().AddToResource(1);
-        GameManager.Instance.Player.RemoveHeldHPS();
-        Debug.Log(currentheld);
+        if (plusClickSound != null)
+        {
+            AudioManager.Instance.PlaySound(plusClickSound);
+        }
+
+        if (currentheld !=0)
+        {
+            minus.interactable = true;
+            TickAmountIncrementBy(1);
+            GetComponentInChildren<Settlement>().AddToResource(1);
+            GameManager.Instance.Player.RemoveHeldHPS();
+            Debug.Log(currentheld);
+        }
+        else plus.interactable = false;
     }
-    else plus.interactable = false;
-}
-private void OnClickMinus()
-{
-    int maxheld = GameManager.Instance.Player.MaxHeldHPS;
-    int currentheld = GameManager.Instance.Player.currentHeldHPS;
-  
-    if (Tick > 0 && currentheld < maxheld)
+
+    private void OnClickMinus()
     {
-        plus.interactable = true;
-        TickAmountIncrementBy(-1);
-        GetComponentInChildren<Settlement>().AddToResource(-1);
-        GameManager.Instance.Player.AddHeldHPS();
-        Debug.Log(currentheld);
+        int maxheld = GameManager.Instance.Player.MaxHeldHPS;
+        int currentheld = GameManager.Instance.Player.currentHeldHPS;
+
+        if (minusClickSound != null)
+        {
+            AudioManager.Instance.PlaySound(minusClickSound);
+        }
+
+        if (Tick > 0 && currentheld < maxheld)
+        {
+            plus.interactable = true;
+            TickAmountIncrementBy(-1);
+            GetComponentInChildren<Settlement>().AddToResource(-1);
+            GameManager.Instance.Player.AddHeldHPS();
+            Debug.Log(currentheld);
+        }
+        else minus.interactable = false;
     }
-    else minus.interactable = false;
-}
 
     public void TickAmountIncrementBy(int damageorheal)
     {

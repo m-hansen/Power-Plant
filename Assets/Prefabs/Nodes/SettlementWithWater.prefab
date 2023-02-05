@@ -1050,7 +1050,7 @@ Transform:
   - {fileID: 137375719556558231}
   - {fileID: 7737136518627174677}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7621604907243956867
 SpriteRenderer:
@@ -1182,6 +1182,8 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   tickRate: 1
+  plusClickSound: {fileID: 8300000, guid: 3f0198d799aedee40ab244085bac52be, type: 3}
+  minusClickSound: {fileID: 8300000, guid: a4ec834c6285f3349abe1f5f27b956e9, type: 3}
 --- !u!1 &7645104842257241146
 GameObject:
   m_ObjectHideFlags: 0

@@ -1097,6 +1097,8 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   tickRate: 1
+  plusClickSound: {fileID: 8300000, guid: 3f0198d799aedee40ab244085bac52be, type: 3}
+  minusClickSound: {fileID: 8300000, guid: a4ec834c6285f3349abe1f5f27b956e9, type: 3}
 --- !u!1 &7645104842257241146
 GameObject:
   m_ObjectHideFlags: 0
