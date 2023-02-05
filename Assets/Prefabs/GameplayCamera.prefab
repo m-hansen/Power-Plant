@@ -138,4 +138,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoomSpeed: 1
   minCameraSize: 8
-  maxCameraSize: 15
+  maxCameraSize: 20
