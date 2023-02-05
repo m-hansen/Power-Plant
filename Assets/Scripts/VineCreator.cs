@@ -87,22 +87,30 @@ public class VineCreator : MonoBehaviour
 
     private bool IsValidVineConnection(Node origin, Node destination)
     {
-        var settlement = destination.GetComponent<Settlement>();
+        var originSettlement = origin.GetComponent<Settlement>();
+        var destinationSettlement = destination.GetComponent<Settlement>();
+
         var CreepOrigin = origin.GetComponent<CreepNode>();
         if (CreepOrigin)
         {
             return true;
         }
 
+        // Cannot connect to itself
+        if (origin == destination)
+        {
+            Debug.Log("Unable to connect a Vine. The origin and destination are the same node.");
+            return false;
+        }
+
         // The destination node must be a settlement
-        if (settlement == null)
+        if (destinationSettlement == null)
         {
             Debug.Log("Unable to connect a Vine. The destination is not a Settlement.");
             return false;
         }
 
         // The origin node must be the power plant or a settlement that is connected to the power plant in some way
-        var originSettlement = origin.GetComponent<Settlement>();
         if (origin.GetComponent<PowerPlant>() == null && (originSettlement != null && !originSettlement.IsConnectedToPowerPlant()))
         {
             Debug.Log("Unable to connect a Vine. The originating Settlement is not connected to the Power Plant.");
@@ -110,7 +118,7 @@ public class VineCreator : MonoBehaviour
         }
 
         // The power plant has enough resources to pay the destination settlement's cost
-        if (GameManager.Instance.Player.PrimaryResource < settlement.Cost)
+        if (GameManager.Instance.Player.PrimaryResource < destinationSettlement.Cost)
         {
             Debug.Log("Unable to connect a Vine. You do not have enough resources.");
             return false;
@@ -124,7 +132,6 @@ public class VineCreator : MonoBehaviour
         }
 
         Debug.Log($"Vine connected: [{origin.name}] -> [{destination.name}]");
-
 
         return true;
     }
