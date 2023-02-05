@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class VineCreator : MonoBehaviour
 {
@@ -40,13 +41,17 @@ public class VineCreator : MonoBehaviour
             ExitVineCreationMode();
         }
     }
+
+    //hacky way to change depth to start from 5 and count down based on depth
     private void StupidVineThingINeed(Node originNode,Node destinationNode)
     {
         var settlementScript = destinationNode.GetComponent<Settlement>();
         if (!settlementScript.isInfected)
         {
             //can clamp node depth hp/s values here
+            destinationNode.GetComponentInChildren<Settlement>().AddToResource((int)Mathf.Clamp(4 + -originNode.Depth, 0f, 99f));
             destinationNode.HealthSystem.StartHotHealing(Mathf.Clamp(5 - originNode.Depth, -99f, 99f));
+            //n2.HealthSystem.StartHotHealing(Mathf.Clamp(5 - n1.Depth, -99f, 99f));
         }
     }
 
@@ -158,8 +163,7 @@ public class VineCreator : MonoBehaviour
         // The graph is bidirectional
         n1.AddAdjacentNode(n2);
         n2.AddAdjacentNode(n1);
-        //n2.HealthSystem.StartHotHealing(Mathf.Clamp(5 - n1.Depth, -99f, 99f));
-        //StupidVineThingINeed(n1, n2);
+        StupidVineThingINeed(n1, n2);
 
     }
 }

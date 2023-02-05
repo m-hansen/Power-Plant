@@ -74,6 +74,11 @@ public class Settlement : Node
         return adjacentNodes.Count > 0;
     }
 
+    public void AddToResource(int n)
+    {
+        resourcePerSecond = n+resourcePerSecond;
+    }
+
     public int GetResourcePerSecond()
     {
         return resourcePerSecond;
