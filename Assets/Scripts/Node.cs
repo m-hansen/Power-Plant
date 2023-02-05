@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(HealthSystem))]
 public class Node : MonoBehaviour
 {
-    private const float LineWidth = 0.467f;
+    protected const float LineWidth = 0.467f;
     private const int InvalidDepth = -1;
 
     protected List<Node> adjacentNodes = new List<Node>(); // edges will be stored as an adjacency list of other nodes, we expect a sparse graph by design
@@ -16,6 +16,8 @@ public class Node : MonoBehaviour
     public int EdgeCount { get => adjacentNodes.Count; }
 
     public HealthSystem HealthSystem { get; protected set; } // TODO: 8305
+
+    protected string VineMaterialName { get; set; } = "INVALID";
 
     void Awake()
     {
@@ -51,8 +53,10 @@ public class Node : MonoBehaviour
         }
     }
 
-    private void DrawEdge(Vector3 origin, Vector3 destination)
+    protected void DrawEdge(Vector3 origin, Vector3 destination)
     {
+        Debug.Assert(!VineMaterialName.Contains("INVALID"));
+
         // Only one line renderer can be present on a GameObject at a time
         var container = Instantiate(new GameObject());
         container.transform.parent = transform;
@@ -61,7 +65,7 @@ public class Node : MonoBehaviour
         var lr = container.AddComponent<LineRenderer>();
         var lrRend = lr.GetComponent<Renderer>();
         lr.textureMode = LineTextureMode.Tile;
-        lrRend.material = Resources.Load<Material>("Vine");
+        lrRend.material = Resources.Load<Material>(VineMaterialName);
         float distance = (destination - origin).magnitude;
         lrRend.material.mainTextureScale = new Vector2(distance / 10, lrRend.material.mainTextureScale.y);
         lr.startWidth = LineWidth;

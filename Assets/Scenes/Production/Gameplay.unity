@@ -1069,14 +1069,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2000163446529632496, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.00000047683716
-      objectReference: {fileID: 0}
-    - target: {fileID: 2000163446529632496, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.51620007
-      objectReference: {fileID: 0}
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_Name
       value: Settlement
@@ -2852,6 +2844,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6166899645302836821, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912340218246315786, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: vineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912340218246315786, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: vineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912340218246315786, guid: cfc5cf95f856d45418e9705fa1b149f3, type: 3}
+      propertyPath: vineColor.r
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

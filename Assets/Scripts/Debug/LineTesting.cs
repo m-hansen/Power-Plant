@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Line : MonoBehaviour
+public class LineTesting : MonoBehaviour
 {
     public Transform target;
 
@@ -20,6 +20,6 @@ public class Line : MonoBehaviour
         lr.SetPosition(0, target.position);
 
         float distance = (target.position - transform.position).magnitude;
-        rend.material.mainTextureScale = new Vector2(distance, rend.material.mainTextureScale.y);
+        rend.material.mainTextureScale = new Vector2(3/ distance, rend.material.mainTextureScale.y);
     }
 }
