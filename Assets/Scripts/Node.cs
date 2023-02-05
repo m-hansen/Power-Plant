@@ -19,13 +19,16 @@ public class Node : MonoBehaviour
 
     protected string VineMaterialName { get; set; } = "INVALID";
 
+    // hack
+    protected bool isCreep = false;
+
     void Awake()
     {
         // TODO: 8305
         //HealthSystem = gameObject.GetComponentInChildren<HealthSystem>();
     }
 
-    public void AddAdjacentNode(Node n)
+    public void AddAdjacentNode(Node n, Component scriptHack) // second param is hack for jam
     {
         adjacentNodes.Add(n);
 
@@ -33,7 +36,7 @@ public class Node : MonoBehaviour
         // let's at least not double draw lines, let the lower depth be the one to actually handle the draw
         if (Depth < n.Depth)
         {
-            DrawEdge(transform.position, n.transform.position);
+            DrawEdge(transform.position, n.transform.position, scriptHack);
         }
 
         if (Depth <= InvalidDepth)
@@ -53,8 +56,10 @@ public class Node : MonoBehaviour
         }
     }
 
-    protected void DrawEdge(Vector3 origin, Vector3 destination)
+    protected void DrawEdge(Vector3 origin, Vector3 destination, Component scriptHack) // 3rd param is hack for jam
     {
+
+        Debug.Log("Draw vine for material " + VineMaterialName);
         Debug.Assert(!VineMaterialName.Contains("INVALID"));
 
         // Only one line renderer can be present on a GameObject at a time
@@ -67,7 +72,7 @@ public class Node : MonoBehaviour
         lr.textureMode = LineTextureMode.Tile;
         lrRend.material = Resources.Load<Material>(VineMaterialName);
         float distance = (destination - origin).magnitude;
-        lrRend.material.mainTextureScale = new Vector2(distance / 10, lrRend.material.mainTextureScale.y);
+        lrRend.material.mainTextureScale = new Vector2(distance / 20, lrRend.material.mainTextureScale.y);
         lr.startWidth = LineWidth;
         lr.endWidth = LineWidth;
         lr.startColor = edgeColor;
@@ -75,5 +80,14 @@ public class Node : MonoBehaviour
         lr.positionCount = 2;
         lr.SetPosition(0, origin);
         lr.SetPosition(1, destination);
+
+        // hack for jam
+        if (scriptHack is CreepNode)
+        {
+            lrRend.material = Resources.Load<Material>("CreepVine");
+            lrRend.material.mainTextureScale = new Vector2(5 / distance, lrRend.material.mainTextureScale.y);
+            lr.startWidth = LineWidth * 3;
+            lr.endWidth = LineWidth * 3;
+        }
     }
 }

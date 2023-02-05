@@ -30,6 +30,11 @@ public class PowerPlant : Node
         resourcesPerSecond+= n;
     }
 
+    public void BecomeInfected()
+    {
+        Debug.Log("game over");
+    }
+
     public void AddHeldHPS()
     {
         currentHeldHPS++;

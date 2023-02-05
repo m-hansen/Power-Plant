@@ -10,7 +10,7 @@ public class HealthSystem : MonoBehaviour
     public Button plus;
     public Button minus;
     [SerializeField]
-    private Vector3 healthBarOffset = new Vector3(0, 0.85f);
+    private Vector3 healthBarOffset = new Vector3(0, 0.85f); // it's more difficult to manage some UI through code and the other through prefabs, we have to guess numbers and wont ever see a preview, eg: I move health and the + / - buttons dont follow
     [SerializeField]
     private float health = 100;
     [SerializeField]

@@ -7,7 +7,7 @@ public class VineCreator : MonoBehaviour
     private LineRenderer tempLineRenderer;
 
     [SerializeField, Range(1, 100)]
-    private int vineElasticity = 10;
+    private int vineElasticity = 20;
 
     [SerializeField, Tooltip("This is used as a buffer to allow misclicks when dragging vines.")]
     private float nodeSnapDistance;
@@ -161,8 +161,8 @@ public class VineCreator : MonoBehaviour
     private void CreateEdge(Node n1, Node n2)
     {
         // The graph is bidirectional
-        n1.AddAdjacentNode(n2);
-        n2.AddAdjacentNode(n1);
+        n1.AddAdjacentNode(n2, this);
+        n2.AddAdjacentNode(n1, this);
         StupidVineThingINeed(n1, n2);
 
     }

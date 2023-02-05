@@ -5994,7 +5994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8819711710249633870, guid: c5d6d1db4fa54974b9813e4fc6af010c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.20999146
+      value: 0.20996094
       objectReference: {fileID: 0}
     - target: {fileID: 8819711710249633870, guid: c5d6d1db4fa54974b9813e4fc6af010c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6475,7 +6475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempLineRenderer: {fileID: 2092979555}
-  vineElasticity: 10
+  vineElasticity: 20
   nodeSnapDistance: 1
 --- !u!4 &1577768216 stripped
 Transform:
@@ -7421,14 +7421,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 905534150}
     m_Modifications:
-    - target: {fileID: 4959974530060535864, guid: 03aec17730892cd4cbc89cff6fb36d17, type: 3}
-      propertyPath: creepTickDamage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959974530060535864, guid: 03aec17730892cd4cbc89cff6fb36d17, type: 3}
-      propertyPath: infectionRadius
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 5452589530846124556, guid: 03aec17730892cd4cbc89cff6fb36d17, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -7473,17 +7465,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5810710532879058573, guid: 03aec17730892cd4cbc89cff6fb36d17, type: 3}
-      propertyPath: prefabHealthBar
-      value: 
-      objectReference: {fileID: 9108349239082846843, guid: 30b1f1900e258414eb7774a885c2f2a4, type: 3}
     - target: {fileID: 5881974607021735874, guid: 03aec17730892cd4cbc89cff6fb36d17, type: 3}
       propertyPath: m_Name
       value: CreepCore
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251876045959343415, guid: 03aec17730892cd4cbc89cff6fb36d17, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9190,7 +9174,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: ff43379659c5951408f0d728a1a8e56f, type: 3}
     - target: {fileID: 8899966754031356844, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
       propertyPath: isMutedOnLaunch
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8899966754031356844, guid: e5522240e9937ff42a034405e17ca3d6, type: 3}
       propertyPath: startingResources

@@ -43,24 +43,31 @@ public class CreepNode : Node
 
         yield return new WaitForSeconds(waitBeforeSpread);
 
-        var settlementsToDamage = FindSettlements();
-        foreach (var settlement in settlementsToDamage)
+        var nodesToDamage = FindClosestNodes();
+        foreach (var n in nodesToDamage)
         {
-            settlement.StartDamageTick(creepTickDamage);
-
-            CreateEdge(this, settlement);
-            settlement.HealthSystem.prefabHealthBar.SetActive(true);
+            if (n is Settlement s)
+            {
+                s.StartDamageTick(creepTickDamage);
+                s.HealthSystem.prefabHealthBar.SetActive(true);
+                CreateEdge(this, s);
+            }
+            else if (n is PowerPlant p)
+            {
+                p.BecomeInfected();
+                CreateEdge(this, p);
+            }
         }
     }
 
-    private Settlement[] FindSettlements()
+    private Node[] FindClosestNodes()
     {
         // FIXME: we probably should copy less arrays around
         int found = 0;
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, infectionRadius);
         //Array.Sort(hitColliders, (a, b) => (int)Mathf.Sign(Vector3.Distance(transform.position, b.transform.position) - Vector3.Distance(transform.position, a.transform.position)));
 
-        List<Settlement> settlementsToReturn = new List<Settlement>();
+        var nodesToReturn = new List<Node>();
 
         for (int i = hitColliders.Length - 1; i >= 0; i--)
         {
@@ -71,18 +78,18 @@ public class CreepNode : Node
             var settlement = hitColliders[i].GetComponentInChildren<Settlement>();
             if (settlement != settlement.isInfected)
             {
-                settlementsToReturn.Add(settlement);
+                nodesToReturn.Add(settlement);
                 found++;
             }
         }
 
-        return settlementsToReturn.ToArray();
+        return nodesToReturn.ToArray();
     }
 
     private void CreateEdge(Node n1, Node n2)
     {
         // The graph is bidirectional
-        n1.AddAdjacentNode(n2);
-        n2.AddAdjacentNode(n1);
+        n1.AddAdjacentNode(n2, this);
+        n2.AddAdjacentNode(n1, this);
     }
 }

@@ -35,15 +35,6 @@ public class Settlement : Node
         }
     }
 
-    private void Update()
-    {
-        if (IsConnectedToPowerPlant())
-        {
-            // Temp for debugging / testing
-            GetComponent<SpriteRenderer>().color = Color.green;
-        }
-    }
-
     public void StartDamageTick(float hpPerTick)
     {
         // Question:
